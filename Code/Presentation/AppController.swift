@@ -22,6 +22,7 @@ class AppController: NSObject {
     @IBOutlet private var menuDialControlMode: NSMenuItem!
     @IBOutlet private var menuDialControlModeScroll: NSMenuItem!
     @IBOutlet private var menuDialControlModeVolume: NSMenuItem!
+    @IBOutlet private var menuDialControlModeKefVolume: NSMenuItem!
     @IBOutlet private var menuDialControlModeBrightness: NSMenuItem!
     @IBOutlet private var menuDialControlModeKeyboard: NSMenuItem!
     @IBOutlet private var menuDialControlModeZoom: NSMenuItem!
@@ -91,6 +92,8 @@ class AppController: NSObject {
                 dialModeSelect(item: menuDialControlModeScroll)
             case .volume:
                 dialModeSelect(item: menuDialControlModeVolume)
+            case .kefVolume:
+                dialModeSelect(item: menuDialControlModeKefVolume)
             case .brightness:
                 dialModeSelect(item: menuDialControlModeBrightness)
             case .keyboard:
@@ -145,6 +148,7 @@ class AppController: NSObject {
     private func dialModeSelect(item: NSMenuItem) {
         menuDialControlModeScroll.state = .off
         menuDialControlModeVolume.state = .off
+        menuDialControlModeKefVolume.state = .off
         menuDialControlModeBrightness.state = .off
         menuDialControlModeKeyboard.state = .off
         menuDialControlModeZoom.state = .off
@@ -161,6 +165,9 @@ class AppController: NSObject {
                     modifiers: [ .shift, .option ]
                 )
                 settings.dialMode = .volume
+            case menuDialControlModeKefVolume.identifier:
+                dialControl = DialKefVolumeControl(host: "192.168.23.106", scale: 0.3)
+                settings.dialMode = .kefVolume
             case menuDialControlModeBrightness.identifier:
                 dialControl = DialKeysUpDownControl(
                     buttonUpKeyCode: NX_KEYTYPE_BRIGHTNESS_UP,

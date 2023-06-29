@@ -28,6 +28,7 @@ class UserSettings {
     }
 
     enum DialOperationMode {
+        case kefVolume
         case scrolling
         case volume
         case brightness
@@ -63,6 +64,7 @@ class UserSettings {
                 case 3: return .brightness
                 case 4: return .keyboard
                 case 5: return .zoom
+                case 6: return .kefVolume
                 default: return .scrolling
             }
         }
@@ -73,6 +75,7 @@ class UserSettings {
                 case .brightness: dialModeSetting = 3
                 case .keyboard: dialModeSetting = 4
                 case .zoom: dialModeSetting = 5
+                case .kefVolume: dialModeSetting = 6
             }
         }
     }

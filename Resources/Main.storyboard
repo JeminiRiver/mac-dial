@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -64,6 +64,12 @@
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
                                             <action selector="dialModeSelectWithItem:" target="gIN-nu-Pip" id="jgQ-R5-3KR"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="KEF Volume" image="icon-volume-small" identifier="dial.mode.kefplayback" id="zoW-zb-IZN">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="dialModeSelectWithItem:" target="gIN-nu-Pip" id="Zgt-gO-gP9"/>
                                         </connections>
                                     </menuItem>
                                     <menuItem title="Scroll" image="icon-scroll-small" identifier="dial.mode.scroll" id="v7h-h5-CmP">
@@ -166,6 +172,7 @@
                         <outlet property="menuButtonControlModePlayback" destination="I2U-aD-qMg" id="bSw-L0-5rz"/>
                         <outlet property="menuDialControlMode" destination="8LI-uh-zfA" id="Ffe-T2-bRA"/>
                         <outlet property="menuDialControlModeBrightness" destination="IO3-RU-FHq" id="h4S-5Q-QXn"/>
+                        <outlet property="menuDialControlModeKefVolume" destination="zoW-zb-IZN" id="QSW-ZT-eWp"/>
                         <outlet property="menuDialControlModeKeyboard" destination="AOl-K5-pLD" id="hKL-9S-L42"/>
                         <outlet property="menuDialControlModeScroll" destination="v7h-h5-CmP" id="uVG-cd-CG4"/>
                         <outlet property="menuDialControlModeVolume" destination="gME-7l-za8" id="LpZ-nM-dTV"/>
