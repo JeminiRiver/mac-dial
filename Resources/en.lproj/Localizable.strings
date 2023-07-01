@@ -4,10 +4,12 @@
 "menu.buttonMode" = "Button";
 "menu.buttonMode.leftClick" = "Left Mouse Click";
 "menu.buttonMode.playback" = "Playback Control";
+"menu.buttonMode.kefplayback" = "KEF Playback Control";
 
 "menu.dialMode" = "Rotation";
 "menu.dialMode.scroll" = "Scrolling";
 "menu.dialMode.music" = "Volume Control";
+"menu.dialMode.kefmusic" = "KEF Volume Control";
 "menu.dialMode.brightness" = "Brightness Control";
 "menu.dialMode.keyboard" = "Keyboard Light Control";
 "menu.dialMode.zoom" = "Zoom";

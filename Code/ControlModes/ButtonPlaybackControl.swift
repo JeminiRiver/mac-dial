@@ -19,7 +19,29 @@ class ButtonPlaybackControl: DeviceControl {
     private let isDebug: Bool = false
     #endif
 
+    private let name: String
+    private var playPauseHandler: () -> Void = {}
+    private var forwardHandler: () -> Void = {}
+    private var rewindHandler: () -> Void = {}
+
+    init(name: String, playPauseHandler: (() -> Void)? = nil, forwardHandler: (() -> Void)? = nil, rewindHandler: (() -> Void)? = nil) {
+        self.name = name
+        self.playPauseHandler = playPauseHandler ?? { [unowned self] in
+            send(key: NX_KEYTYPE_PLAY)
+            log(tag: "Media:\(name)", "sent «Play/Pause»")
+        }
+        self.forwardHandler = forwardHandler ?? { [unowned self] in
+            send(key: NX_KEYTYPE_NEXT)
+            log(tag: "Media:\(name)", "sent «Play Next»")
+        }
+        self.rewindHandler = rewindHandler ?? { [unowned self] in
+            send(key: NX_KEYTYPE_PREVIOUS)
+            log(tag: "Media:\(name)", "sent «Play Previous»")
+        }
+    }
+
     func buttonPress() {
+        log(tag: "Media:\(name)", "button press (ignored)")
     }
 
     private var numberOfClicks: Int = 0
@@ -31,23 +53,16 @@ class ButtonPlaybackControl: DeviceControl {
         let currentNumberOfClicks = numberOfClicks + 1
         numberOfClicks = currentNumberOfClicks
         lastClickTime = Date.timeIntervalSinceReferenceDate
-        log(tag: "Media", "counting clicks: \(numberOfClicks)")
+        log(tag: "Media:\(name)", "button release. Counting clicks: \(numberOfClicks)")
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [self] in
             guard currentNumberOfClicks == numberOfClicks else { return }
 
             switch numberOfClicks {
-                case 1:
-                    send(key: NX_KEYTYPE_PLAY)
-                    log(tag: "Media", "sent Play/Pause")
-                case 2:
-                    send(key: NX_KEYTYPE_NEXT)
-                    log(tag: "Media", "sent Play Next")
-                case 3 ... 1000:
-                    send(key: NX_KEYTYPE_PREVIOUS)
-                    log(tag: "Media", "sent Play Previous")
-                default:
-                    break
+                case 1: playPauseHandler()
+                case 2: forwardHandler()
+                case 3 ... 1000: rewindHandler()
+                default: break
             }
 
             numberOfClicks = 0

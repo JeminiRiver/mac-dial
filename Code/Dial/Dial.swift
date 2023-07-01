@@ -13,7 +13,8 @@
 import Foundation
 
 class Dial {
-    var controls: [DeviceControl] = []
+    var dialControl: DeviceControl?
+    var buttonControl: DeviceControl?
 
     var wheelSensitivity: Double {
         get { device.wheelSensitivity }
@@ -55,15 +56,13 @@ class Dial {
         self.lastButtonState = state
 
         switch (lastButtonState, state) {
-            case (.released, .pressed): controls.forEach { $0.buttonPress() }
-            case (.pressed, .released): controls.forEach { $0.buttonRelease() }
+            case (.released, .pressed): buttonControl?.buttonPress()
+            case (.pressed, .released): buttonControl?.buttonRelease()
             default: break
         }
     }
 
     private func processRotation(state: RotationState) -> Bool {
-        var result = false
-        controls.forEach { result = $0.rotationChanged(state) || result }
-        return result
+        dialControl?.rotationChanged(state) ?? false
     }
 }

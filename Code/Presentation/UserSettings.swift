@@ -39,6 +39,7 @@ class UserSettings {
     enum ButtonOperationMode {
         case leftClick
         case playback
+        case kefPlayback
     }
 
     @FromUserDefaults(key: .dialMode, defaultValue: 2)
@@ -82,16 +83,18 @@ class UserSettings {
 
     var buttonMode: ButtonOperationMode {
         get {
-            switch dialModeSetting {
+            switch buttonModeSetting {
                 case 1: return .leftClick
                 case 2: return .playback
+                case 3: return .kefPlayback
                 default: return .playback
             }
         }
         set {
             switch newValue {
-                case .leftClick: dialModeSetting = 1
-                case .playback: dialModeSetting = 2
+                case .leftClick: buttonModeSetting = 1
+                case .playback: buttonModeSetting = 2
+                case .kefPlayback: buttonModeSetting = 3
             }
         }
     }

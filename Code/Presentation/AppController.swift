@@ -18,6 +18,7 @@ class AppController: NSObject {
     @IBOutlet private var menuButtonControlMode: NSMenuItem!
     @IBOutlet private var menuButtonControlModeLeftClick: NSMenuItem!
     @IBOutlet private var menuButtonControlModePlayback: NSMenuItem!
+    @IBOutlet private var menuButtonControlModeKefPlayback: NSMenuItem!
 
     @IBOutlet private var menuDialControlMode: NSMenuItem!
     @IBOutlet private var menuDialControlModeScroll: NSMenuItem!
@@ -62,10 +63,12 @@ class AppController: NSObject {
         menuButtonControlMode.title = NSLocalizedString("menu.buttonMode", comment: "")
         menuButtonControlModeLeftClick.title = NSLocalizedString("menu.buttonMode.leftClick", comment: "")
         menuButtonControlModePlayback.title = NSLocalizedString("menu.buttonMode.playback", comment: "")
+        menuButtonControlModeKefPlayback.title = NSLocalizedString("menu.buttonMode.kefplayback", comment: "")
 
         menuDialControlMode.title = NSLocalizedString("menu.dialMode", comment: "")
         menuDialControlModeScroll.title = NSLocalizedString("menu.dialMode.scroll", comment: "")
         menuDialControlModeVolume.title = NSLocalizedString("menu.dialMode.music", comment: "")
+        menuDialControlModeKefVolume.title = NSLocalizedString("menu.dialMode.kefmusic", comment: "")
         menuDialControlModeBrightness.title = NSLocalizedString("menu.dialMode.brightness", comment: "")
         menuDialControlModeKeyboard.title = NSLocalizedString("menu.dialMode.keyboard", comment: "")
         menuDialControlModeZoom.title = NSLocalizedString("menu.dialMode.zoom", comment: "")
@@ -106,6 +109,8 @@ class AppController: NSObject {
                 buttonModeSelect(item: menuButtonControlModeLeftClick)
             case .playback:
                 buttonModeSelect(item: menuButtonControlModePlayback)
+            case .kefPlayback:
+                buttonModeSelect(item: menuButtonControlModeKefPlayback)
         }
         switch settings.sensitivity {
             case .low:
@@ -166,7 +171,7 @@ class AppController: NSObject {
                 )
                 settings.dialMode = .volume
             case menuDialControlModeKefVolume.identifier:
-                dialControl = DialKefVolumeControl(host: "192.168.23.106", scale: 0.3)
+                dialControl = KefControl(host: "192.168.23.106", scale: 0.3)
                 settings.dialMode = .kefVolume
             case menuDialControlModeBrightness.identifier:
                 dialControl = DialKeysUpDownControl(
@@ -188,7 +193,7 @@ class AppController: NSObject {
             default:
                 break
         }
-        dial?.controls = (dialControl.map { [ $0 ] } ?? []) + (buttonControl.map { [ $0 ] } ?? [])
+        dial?.dialControl = dialControl
         updateMenuBarItem(from: item)
     }
 
@@ -196,6 +201,7 @@ class AppController: NSObject {
     private func buttonModeSelect(item: NSMenuItem) {
         menuButtonControlModeLeftClick.state = .off
         menuButtonControlModePlayback.state = .off
+        menuButtonControlModeKefPlayback.state = .off
         item.state = .on
         menuButtonControlMode.image = item.image
         switch item.identifier {
@@ -203,12 +209,15 @@ class AppController: NSObject {
                 buttonControl = ButtonPressControl(eventDownType: .leftMouseDown, eventUpType: .leftMouseUp)
                 settings.buttonMode = .leftClick
             case menuButtonControlModePlayback.identifier:
-                buttonControl = ButtonPlaybackControl()
+                buttonControl = ButtonPlaybackControl(name: "Music")
                 settings.buttonMode = .playback
+            case menuButtonControlModeKefPlayback.identifier:
+                buttonControl = KefControl(host: "192.168.23.106", scale: 0.3)
+                settings.buttonMode = .kefPlayback
             default:
                 break
         }
-        dial?.controls = (dialControl.map { [ $0 ] } ?? []) + (buttonControl.map { [ $0 ] } ?? [])
+        dial?.buttonControl = buttonControl
     }
 
     @IBAction

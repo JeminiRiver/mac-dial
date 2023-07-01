@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2DBA116C33D51297D5384A52 /* DeviceControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA11B74C37AE96041F400D /* DeviceControl.swift */; };
-		2DBA133D6E164461D561553B /* DialKefVolumeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA175D90F0EC0C66637FD1 /* DialKefVolumeControl.swift */; };
+		2DBA133D6E164461D561553B /* KefControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA175D90F0EC0C66637FD1 /* KefControl.swift */; };
 		2DBA1531BDED42DBEA94036E /* HID.Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA151FDA5C8860610CD02D /* HID.Helpers.swift */; };
 		2DBA16DB57BAE6DE838B0866 /* ButtonPlaybackControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA134817855F7B605FABE8 /* ButtonPlaybackControl.swift */; };
 		2DBA179F38FAAE40805B5323 /* ButtonPressControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1BDF69863D61FDD7CB3F /* ButtonPressControl.swift */; };
@@ -35,7 +35,7 @@
 		2DBA134CA4B2FEEA02C66B07 /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		2DBA14031F68B505C8B42CD0 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		2DBA151FDA5C8860610CD02D /* HID.Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HID.Helpers.swift; sourceTree = "<group>"; };
-		2DBA175D90F0EC0C66637FD1 /* DialKefVolumeControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialKefVolumeControl.swift; sourceTree = "<group>"; };
+		2DBA175D90F0EC0C66637FD1 /* KefControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KefControl.swift; sourceTree = "<group>"; };
 		2DBA1824516DE7C2EA24F590 /* HIDReport.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = HIDReport.md; sourceTree = "<group>"; };
 		2DBA1898A55AE4BDB7ED1A4C /* UserSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		2DBA1BDF69863D61FDD7CB3F /* ButtonPressControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonPressControl.swift; sourceTree = "<group>"; };
@@ -148,7 +148,7 @@
 				2DBA1BDF69863D61FDD7CB3F /* ButtonPressControl.swift */,
 				2DBA134817855F7B605FABE8 /* ButtonPlaybackControl.swift */,
 				2DBA11338B12EF8AD2CB3645 /* DialZoomControl.swift */,
-				2DBA175D90F0EC0C66637FD1 /* DialKefVolumeControl.swift */,
+				2DBA175D90F0EC0C66637FD1 /* KefControl.swift */,
 			);
 			path = ControlModes;
 			sourceTree = "<group>";
@@ -237,7 +237,7 @@
 				2DBA179F38FAAE40805B5323 /* ButtonPressControl.swift in Sources */,
 				2DBA16DB57BAE6DE838B0866 /* ButtonPlaybackControl.swift in Sources */,
 				2DBA1EB5593E29FFD3DD16DF /* DialZoomControl.swift in Sources */,
-				2DBA133D6E164461D561553B /* DialKefVolumeControl.swift in Sources */,
+				2DBA133D6E164461D561553B /* KefControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

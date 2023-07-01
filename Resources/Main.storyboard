@@ -47,6 +47,12 @@
                                             <action selector="buttonModeSelectWithItem:" target="gIN-nu-Pip" id="zHS-Iv-v6H"/>
                                         </connections>
                                     </menuItem>
+                                    <menuItem title="KEF Playback Control" image="icon-playback-small" identifier="button.mode.kefplayback" id="JwK-ST-LvK">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="buttonModeSelectWithItem:" target="gIN-nu-Pip" id="0sF-d7-yiJ"/>
+                                        </connections>
+                                    </menuItem>
                                     <menuItem title="Left Button Click" state="on" image="icon-click-small" identifier="button.mode.leftclick" id="swb-eL-lJi">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
@@ -168,6 +174,7 @@
                 <customObject id="gIN-nu-Pip" customClass="AppController" customModule="MacDial" customModuleProvider="target">
                     <connections>
                         <outlet property="menuButtonControlMode" destination="Bi4-hl-Bnf" id="Xvg-wh-u3h"/>
+                        <outlet property="menuButtonControlModeKefPlayback" destination="JwK-ST-LvK" id="qrc-F9-Pee"/>
                         <outlet property="menuButtonControlModeLeftClick" destination="swb-eL-lJi" id="BEp-XR-1sK"/>
                         <outlet property="menuButtonControlModePlayback" destination="I2U-aD-qMg" id="bSw-L0-5rz"/>
                         <outlet property="menuDialControlMode" destination="8LI-uh-zfA" id="Ffe-T2-bRA"/>
