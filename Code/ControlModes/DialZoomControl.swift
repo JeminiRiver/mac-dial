@@ -22,24 +22,26 @@ class DialZoomControl: DeviceControl {
 
     private var lastRotate: TimeInterval = Date().timeIntervalSince1970
 
-    func rotationChanged(_ rotation: RotationState) -> Bool {
+    func rotationChanged(_ rotation: RotationState, _ axis: ScrollDirection) -> Bool {
         guard rotation != .stationary else { return false }
 
-        let mousePos = NSEvent.mouseLocation
-        let screenHeight = NSScreen.main?.frame.height ?? 0
-        let mousePosition = NSPoint(x: mousePos.x, y: screenHeight - mousePos.y)
-        let rect = NSScreen.main!.frame
-        let highlightRect = CGRect(x: mousePosition.x - 50, y: mousePosition.y - 50, width: 100, height: 100)
-
-        // TODO: This thing does not work for now
-        withUnsafePointer(to: rect) { rect in
-            withUnsafePointer(to: highlightRect) { highlightRect in
-                let status = UAZoomChangeFocus(rect, highlightRect, UInt32(kUAZoomFocusTypeInsertionPoint))
-                print("----------> \(mousePosition.x);\(mousePosition.y) \(status == noErr ? "OK" : "Error code") \(status)")
+        guard let plusKeyCode = CGKeyCode(character: "+") else { fatalError() }
+        guard let minusKeyCode = CGKeyCode(character: "-") else { fatalError() }
+        let key : CGKeyCode = (rotation.amount > 0) ? plusKeyCode : ( (rotation.amount < 0) ? minusKeyCode : 55 )
+        KeyPress(key, true, true)
+        KeyPress(key, false, true)
+        return true;
+    }
+    
+    func KeyPress(_ key: CGKeyCode, _ down: Bool, _ command: Bool) {
+        if
+            let source = CGEventSource( stateID: .privateState ),
+            let event = CGEvent( keyboardEventSource: source, virtualKey: key, keyDown: down ) {
+            if(command) {
+                event.flags = CGEventFlags.maskCommand
             }
+            event.type = down ? .keyDown : .keyUp
+            event.post( tap: .cghidEventTap )
         }
-
-        lastRotate = Date().timeIntervalSince1970
-        return true
     }
 }

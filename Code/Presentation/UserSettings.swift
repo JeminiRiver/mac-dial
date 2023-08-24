@@ -13,11 +13,13 @@
 import Foundation
 
 extension SettingsValueKey {
+   
     static let dialMode: SettingsValueKey = "settings.dialMode"
     static let buttonMode: SettingsValueKey = "settings.buttonMode"
     static let sensitivity: SettingsValueKey = "settings.sensitivity"
     static let rotationClick: SettingsValueKey = "settings.isRotationClickEnabled"
-    static let wheelDirection: SettingsValueKey = "settings.wheelDirection"
+    static let wheelRotation: SettingsValueKey = "settings.wheelRotation"
+    static let scrollDirection: SettingsValueKey = "settings.scrollDirection"
 }
 
 class UserSettings {
@@ -39,7 +41,7 @@ class UserSettings {
         case leftClick
         case playback
     }
-
+        
     @FromUserDefaults(key: .dialMode, defaultValue: 2)
     private var dialModeSetting: Int
 
@@ -52,8 +54,11 @@ class UserSettings {
     @FromUserDefaults(key: .rotationClick, defaultValue: true)
     private var isRotationClickEnabledSetting: Bool
 
-    @FromUserDefaults(key: .wheelDirection, defaultValue: 1)
-    private var wheelDirectionSetting: Int
+    @FromUserDefaults(key: .wheelRotation, defaultValue: 1)
+    private var wheelRotationSetting: Int
+
+    @FromUserDefaults(key: .scrollDirection, defaultValue: 1)
+    private var scrollDirectionSetting: Int
 
     var dialMode: DialOperationMode {
         get {
@@ -62,6 +67,7 @@ class UserSettings {
                 case 2: return .volume
                 case 3: return .brightness
                 case 4: return .keyboard
+                //Disabled
                 case 5: return .zoom
                 default: return .scrolling
             }
@@ -69,10 +75,10 @@ class UserSettings {
         set {
             switch newValue {
                 case .scrolling: dialModeSetting = 1
+                case .zoom: dialModeSetting = 5
                 case .volume: dialModeSetting = 2
                 case .brightness: dialModeSetting = 3
                 case .keyboard: dialModeSetting = 4
-                case .zoom: dialModeSetting = 5
             }
         }
     }
@@ -120,14 +126,31 @@ class UserSettings {
         }
     }
 
-    var wheelDirection: WheelDirection {
+    var wheelRotation: WheelRotation {
         get {
-            wheelDirectionSetting < 0 ? .anticlockwise : .clockwise
+            wheelRotationSetting < 0 ? .anticlockwise : .clockwise
         }
         set {
-            wheelDirectionSetting = newValue == .clockwise ? 1 : -1
+            wheelRotationSetting = newValue == .clockwise ? 1 : -1
         }
     }
+    
+    var scrollDirection: ScrollDirection {
+        get {
+            switch scrollDirectionSetting {
+                case 1: return .vertical
+                case 2: return .horizontal
+                default: return .vertical
+            }
+        }
+        set {
+            switch newValue {
+                case .vertical: scrollDirectionSetting = 1
+                case .horizontal: scrollDirectionSetting = 2
+            }
+        }
+    }
+    
 }
 
 struct SettingsValueKey: ExpressibleByStringLiteral {

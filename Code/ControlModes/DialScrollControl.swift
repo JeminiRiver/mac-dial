@@ -12,44 +12,58 @@
 
 import AppKit
 import Carbon
+import Foundation
+import CoreGraphics
 
 class DialScrollControl: DeviceControl {
     private let withControl: Bool
-
+    
     init(withControl: Bool = false) {
         self.withControl = withControl
     }
-
+    
     func buttonPress() {
     }
-
+    
     func buttonRelease() {
     }
-
+    
     private var lastRotate: TimeInterval = Date().timeIntervalSince1970
-
-    func rotationChanged(_ rotation: RotationState) -> Bool {
+    
+    func rotationChanged(_ rotation: RotationState, _ axis: ScrollDirection) -> Bool {
         guard rotation != .stationary else { return false }
-
+        var amount = rotation.amount
+        
+        //MacOS Inverts vertical & horizontal scrolling by default
+        if( axis == .vertical || axis == .horizontal ) {
+            amount = -amount
+        }
+        
         let diff = (Date().timeIntervalSince1970 - lastRotate) * 1000
         let multiplier = Double(1.0 + ((150.0 - min(diff, 150.0)) / 40.0))
-        let steps: Int32 = Int32(floor(rotation.amount * multiplier))
-
+        let steps: Int32 = Int32(floor(amount * multiplier))
+        
+        //let diff = (Date().timeIntervalSince1970 - lastRotate) * 1000
+        //let multiplifer = Int(1 + ((150 - min(diff, 150)) / 40))
+        //let steps = Int32(Int(rotation.amount) * multiplifer)
+        
         let scrollEvent = CGEvent(
             scrollWheelEvent2Source: nil,
             units: withControl ? .pixel : .line,
-            wheelCount: 1,
-            wheel1: steps,
-            wheel2: 0,
-            wheel3: 0
+            wheelCount: 2,
+            wheel1: axis == .vertical ? steps : 0,
+            wheel2: axis == .horizontal ? steps : 0,
+            wheel3: 0 //DOES NOT WORK FOR ZOOM CONTROL
         )
         if withControl {
             scrollEvent?.flags = .maskControl
         }
         scrollEvent?.post(tap: .cghidEventTap)
-        log(tag: "Scroll", "sent scroll event: \(steps) steps\(withControl ? " with Control" : "")")
-
+        log(tag: "Scroll", "sent scroll event [\(axis)]: \(steps) steps\(withControl ? " with Control" : "")")
+        log(tag: "Scrolling", "Wheel 1: \(axis == .vertical) | Wheel 2: \(axis == .horizontal)");
+        
         lastRotate = Date().timeIntervalSince1970
         return true
     }
+    
 }

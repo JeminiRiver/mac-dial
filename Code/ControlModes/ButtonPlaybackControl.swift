@@ -55,12 +55,13 @@ class ButtonPlaybackControl: DeviceControl {
     }
 
     private func send(key: Int32, repeatCount: Int = 1) {
-        guard !isDebug else { return }
+        //NOTE: Disabled this guard. It works just fine in debugging mode
+        //guard !isDebug else { return }
 
         HIDPostAuxKey(key: key, modifiers: [], repeatCount: repeatCount)
     }
 
-    func rotationChanged(_ rotation: RotationState) -> Bool {
+    func rotationChanged(_ rotation: RotationState, _ axis: ScrollDirection) -> Bool {
         false
     }
 }

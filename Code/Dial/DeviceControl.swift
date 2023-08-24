@@ -17,7 +17,12 @@ enum ButtonState: Equatable {
     case released
 }
 
-enum WheelDirection: Equatable {
+enum ScrollDirection: Equatable {
+    case vertical
+    case horizontal
+}
+
+enum WheelRotation: Equatable {
     case clockwise
     case anticlockwise
 }
@@ -39,5 +44,5 @@ enum RotationState: Equatable {
 protocol DeviceControl: AnyObject {
     func buttonPress()
     func buttonRelease()
-    func rotationChanged(_ rotation: RotationState) -> Bool
+    func rotationChanged(_ rotation: RotationState, _ scroll: ScrollDirection) -> Bool
 }

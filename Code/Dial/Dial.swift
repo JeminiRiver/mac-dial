@@ -12,6 +12,8 @@
 
 import Foundation
 
+private var _scrollDirection: ScrollDirection = .vertical
+
 class Dial {
     var controls: [DeviceControl] = []
 
@@ -20,11 +22,16 @@ class Dial {
         set { device.wheelSensitivity = newValue }
     }
 
-    var wheelDirection: WheelDirection {
-        get { device.wheelDirection }
-        set { device.wheelDirection = newValue }
+    var wheelRotation: WheelRotation {
+        get { device.wheelRotation }
+        set { device.wheelRotation = newValue }
     }
 
+    var scrollDirection: ScrollDirection {
+        get { _scrollDirection }
+        set { _scrollDirection = newValue }
+    }
+    
     var isRotationClickEnabled: Bool {
         get { device.isRotationClickEnabled }
         set { device.isRotationClickEnabled = newValue }
@@ -63,7 +70,7 @@ class Dial {
 
     private func processRotation(state: RotationState) -> Bool {
         var result = false
-        controls.forEach { result = $0.rotationChanged(state) || result }
+        controls.forEach { result = $0.rotationChanged(state, scrollDirection) || result }
         return result
     }
 }
