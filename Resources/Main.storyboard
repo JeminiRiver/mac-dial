@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -11,11 +11,11 @@
                 <application id="hnw-xV-0zn" sceneMemberID="viewController">
                     <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
                         <items>
-                            <menuItem title="MacDial" id="1Xt-HY-uBw">
+                            <menuItem title="MacDial 2" id="1Xt-HY-uBw">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="MacDial" systemMenu="apple" id="uQy-DD-JDr">
+                                <menu key="submenu" title="MacDial 2" systemMenu="apple" id="uQy-DD-JDr">
                                     <items>
-                                        <menuItem title="Quit MacDial" keyEquivalent="q" id="4sb-4s-VLi">
+                                        <menuItem title="Quit MacDial 2" keyEquivalent="q" id="4sb-4s-VLi">
                                             <connections>
                                                 <action selector="terminate:" target="Ady-hI-5gd" id="Te7-pn-YzF"/>
                                             </connections>
@@ -29,7 +29,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="MacDial" customModuleProvider="target">
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="MacDial_2" customModuleProvider="target">
                     <connections>
                         <outlet property="controller" destination="gIN-nu-Pip" id="a7Z-td-ets"/>
                     </connections>
@@ -72,6 +72,12 @@
                                             <action selector="dialModeSelectWithItem:" target="gIN-nu-Pip" id="Emp-LZ-yeT"/>
                                         </connections>
                                     </menuItem>
+                                    <menuItem title="Zoom" image="icon-zoom-small" identifier="dial.mode.zoom" id="ElE-Uo-sbd">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="dialModeSelectWithItem:" target="gIN-nu-Pip" id="zx9-tE-Y9i"/>
+                                        </connections>
+                                    </menuItem>
                                     <menuItem title="Brightness" image="icon-brightness-small" identifier="dial.mode.brightness" id="IO3-RU-FHq">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
@@ -84,19 +90,13 @@
                                             <action selector="dialModeSelectWithItem:" target="gIN-nu-Pip" id="vSd-Fx-nWd"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem title="Screen Zoom" image="icon-zoom-small" identifier="dial.mode.zoom" id="ElE-Uo-sbd">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                        <connections>
-                                            <action selector="dialModeSelectWithItem:" target="gIN-nu-Pip" id="zx9-tE-Y9i"/>
-                                        </connections>
-                                    </menuItem>
                                 </items>
                             </menu>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="dwB-c8-zpm"/>
-                        <menuItem title="Wheel Sensitivity" id="FER-f3-ImN">
+                        <menuItem title="Sensitivity" id="FER-f3-ImN">
                             <modifierMask key="keyEquivalentModifierMask"/>
-                            <menu key="submenu" title="Wheel Sensitivity" id="vxR-co-3d8">
+                            <menu key="submenu" title="Sensitivity" id="vxR-co-3d8">
                                 <items>
                                     <menuItem title="Low" state="on" identifier="sensitivity.low" id="bzY-GD-JPg">
                                         <modifierMask key="keyEquivalentModifierMask"/>
@@ -119,29 +119,45 @@
                                 </items>
                             </menu>
                         </menuItem>
-                        <menuItem title="Wheel Direction" id="Rcn-BF-7He">
+                        <menuItem title="Rotation" id="Rcn-BF-7He">
                             <modifierMask key="keyEquivalentModifierMask"/>
-                            <menu key="submenu" title="Dial Mode" id="Kia-rF-Ucp">
+                            <menu key="submenu" title="Rotation" id="Kia-rF-Ucp">
                                 <items>
-                                    <menuItem title="Clockwise ↑" identifier="direction.cw" id="8eF-Lz-fi6">
+                                    <menuItem title="Clockwise" state="on" image="arrow.clockwise" catalog="system" identifier="rotation.cw" id="8eF-Lz-fi6">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
-                                            <action selector="directionSelectWithItem:" target="gIN-nu-Pip" id="PV3-1i-Cgb"/>
+                                            <action selector="rotationSelectWithItem:" target="gIN-nu-Pip" id="bma-zE-RLW"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem title="Anticlockwise ↑" state="on" identifier="direction.ccw" id="lmT-ql-Of7">
+                                    <menuItem title="Counter" image="arrow.counterclockwise" catalog="system" identifier="rotation.ccw" id="lmT-ql-Of7">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
-                                            <action selector="directionSelectWithItem:" target="gIN-nu-Pip" id="G6T-zq-OLv"/>
+                                            <action selector="rotationSelectWithItem:" target="gIN-nu-Pip" id="71E-HL-K1H"/>
                                         </connections>
                                     </menuItem>
                                 </items>
                             </menu>
-                            <connections>
-                                <action selector="rotationClickSelectWithItem:" target="gIN-nu-Pip" id="Fyd-4R-ZCY"/>
-                            </connections>
                         </menuItem>
-                        <menuItem title="Enable Rotation Click" id="g2u-Rf-4tx">
+                        <menuItem title="Direction" id="tun-Im-8wb">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <menu key="submenu" title="Direction" id="xTu-Ue-3Ga">
+                                <items>
+                                    <menuItem title="Vertical" state="on" image="arrow.up.and.line.horizontal.and.arrow.down" catalog="system" identifier="direction.vert" id="sFc-y8-OQB">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="directionSelectWithItem:" target="gIN-nu-Pip" id="vrM-pg-TdG"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Horizontal" image="arrow.left.and.line.vertical.and.arrow.right" catalog="system" identifier="direction.horz" id="asP-ej-d6C">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="directionSelectWithItem:" target="gIN-nu-Pip" id="lRR-ze-aqK"/>
+                                        </connections>
+                                    </menuItem>
+                                </items>
+                            </menu>
+                        </menuItem>
+                        <menuItem title="Haptics" id="g2u-Rf-4tx">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="rotationClickSelectWithItem:" target="gIN-nu-Pip" id="Tg2-mH-3aB"/>
@@ -159,7 +175,7 @@
                         </menuItem>
                     </items>
                 </menu>
-                <customObject id="gIN-nu-Pip" customClass="AppController" customModule="MacDial" customModuleProvider="target">
+                <customObject id="gIN-nu-Pip" customClass="AppController" customModule="MacDial_2" customModuleProvider="target">
                     <connections>
                         <outlet property="menuButtonControlMode" destination="Bi4-hl-Bnf" id="Xvg-wh-u3h"/>
                         <outlet property="menuButtonControlModeLeftClick" destination="swb-eL-lJi" id="BEp-XR-1sK"/>
@@ -172,14 +188,17 @@
                         <outlet property="menuDialControlModeZoom" destination="ElE-Uo-sbd" id="pX0-sp-mlm"/>
                         <outlet property="menuHaptics" destination="g2u-Rf-4tx" id="04T-ka-edn"/>
                         <outlet property="menuQuit" destination="O5Z-zk-v4Z" id="bua-Re-Fya"/>
+                        <outlet property="menuScrollDirection" destination="tun-Im-8wb" id="f6P-wC-rfo"/>
+                        <outlet property="menuScrollDirectionHorz" destination="asP-ej-d6C" id="QRj-6b-oBd"/>
+                        <outlet property="menuScrollDirectionVert" destination="sFc-y8-OQB" id="WHH-LG-I2q"/>
                         <outlet property="menuSensitivity" destination="FER-f3-ImN" id="Rer-iP-HjA"/>
                         <outlet property="menuSensitivityHigh" destination="RIY-2g-aZW" id="cR2-bb-siw"/>
                         <outlet property="menuSensitivityLow" destination="bzY-GD-JPg" id="XBl-Py-uZC"/>
                         <outlet property="menuSensitivityMedium" destination="IxT-1H-xW0" id="7aX-fW-U0l"/>
                         <outlet property="menuState" destination="yM5-u2-cSx" id="Xlw-Ju-l6O"/>
-                        <outlet property="menuWheelDirection" destination="Rcn-BF-7He" id="Ctr-CJ-bK0"/>
-                        <outlet property="menuWheelDirectionCCW" destination="lmT-ql-Of7" id="aVI-2a-bmL"/>
-                        <outlet property="menuWheelDirectionCW" destination="8eF-Lz-fi6" id="I5a-qp-eiU"/>
+                        <outlet property="menuWheelRotation" destination="Rcn-BF-7He" id="WBa-KK-eCp"/>
+                        <outlet property="menuWheelRotationCCW" destination="lmT-ql-Of7" id="hVp-Nr-Og4"/>
+                        <outlet property="menuWheelRotationCW" destination="8eF-Lz-fi6" id="haw-MT-jK7"/>
                         <outlet property="statusMenu" destination="G3k-FC-fVx" id="8SM-pk-HuJ"/>
                     </connections>
                 </customObject>
@@ -188,6 +207,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrow.clockwise" catalog="system" width="14" height="16"/>
+        <image name="arrow.counterclockwise" catalog="system" width="14" height="16"/>
+        <image name="arrow.left.and.line.vertical.and.arrow.right" catalog="system" width="23" height="15"/>
+        <image name="arrow.up.and.line.horizontal.and.arrow.down" catalog="system" width="15" height="18"/>
         <image name="icon-brightness-small" width="18" height="18"/>
         <image name="icon-click-small" width="18" height="18"/>
         <image name="icon-keyboard-small" width="18" height="18"/>

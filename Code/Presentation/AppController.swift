@@ -31,9 +31,13 @@ class AppController: NSObject {
     @IBOutlet private var menuSensitivityMedium: NSMenuItem!
     @IBOutlet private var menuSensitivityHigh: NSMenuItem!
 
-    @IBOutlet private var menuWheelDirection: NSMenuItem!
-    @IBOutlet private var menuWheelDirectionCW: NSMenuItem!
-    @IBOutlet private var menuWheelDirectionCCW: NSMenuItem!
+    @IBOutlet private var menuWheelRotation: NSMenuItem!
+    @IBOutlet private var menuWheelRotationCW: NSMenuItem!
+    @IBOutlet private var menuWheelRotationCCW: NSMenuItem!
+
+    @IBOutlet private var menuScrollDirection: NSMenuItem!
+    @IBOutlet private var menuScrollDirectionVert: NSMenuItem!
+    @IBOutlet private var menuScrollDirectionHorz: NSMenuItem!
 
     @IBOutlet private var menuHaptics: NSMenuItem!
 
@@ -64,24 +68,28 @@ class AppController: NSObject {
 
         menuDialControlMode.title = NSLocalizedString("menu.dialMode", comment: "")
         menuDialControlModeScroll.title = NSLocalizedString("menu.dialMode.scroll", comment: "")
+        menuDialControlModeZoom.title = NSLocalizedString("menu.dialMode.zoom", comment: "")
         menuDialControlModeVolume.title = NSLocalizedString("menu.dialMode.music", comment: "")
         menuDialControlModeBrightness.title = NSLocalizedString("menu.dialMode.brightness", comment: "")
         menuDialControlModeKeyboard.title = NSLocalizedString("menu.dialMode.keyboard", comment: "")
-        menuDialControlModeZoom.title = NSLocalizedString("menu.dialMode.zoom", comment: "")
 
         // TODO: Does not work for now, so disabling
-        if let menu = menuDialControlModeZoom.menu, let index = menu.items.firstIndex(of: menuDialControlModeZoom) {
-            menu.items.remove(at: index)
-        }
+        //if let menu = menuDialControlModeZoom.menu, let index = menu.items.firstIndex(of: menuDialControlModeZoom) {
+        //    menu.items.remove(at: index)
+        //}
 
         menuSensitivity.title = NSLocalizedString("menu.rotationSensitivity", comment: "")
         menuSensitivityLow.title = NSLocalizedString("menu.rotationSensitivity.low", comment: "")
         menuSensitivityMedium.title = NSLocalizedString("menu.rotationSensitivity.medium", comment: "")
         menuSensitivityHigh.title = NSLocalizedString("menu.rotationSensitivity.high", comment: "")
 
-        menuWheelDirection.title = NSLocalizedString("menu.direction", comment: "")
-        menuWheelDirectionCW.title = NSLocalizedString("menu.direction.cw", comment: "")
-        menuWheelDirectionCCW.title = NSLocalizedString("menu.direction.ccw", comment: "")
+        menuWheelRotation.title = NSLocalizedString("menu.rotation", comment: "")
+        menuWheelRotationCW.title = NSLocalizedString("menu.rotation.cw", comment: "")
+        menuWheelRotationCCW.title = NSLocalizedString("menu.rotation.ccw", comment: "")
+
+        menuScrollDirection.title = NSLocalizedString("menu.direction", comment: "")
+        menuScrollDirectionVert.title = NSLocalizedString("menu.direction.vert", comment: "")
+        menuScrollDirectionHorz.title = NSLocalizedString("menu.direction.horz", comment: "")
 
         menuHaptics.title = NSLocalizedString("menu.rotationFeedback", comment: "")
         menuQuit.title = NSLocalizedString("menu.quit", comment: "")
@@ -112,11 +120,17 @@ class AppController: NSObject {
             case .high:
                 sensitivitySelect(item: menuSensitivityHigh)
         }
-        switch settings.wheelDirection {
+        switch settings.wheelRotation {
             case .clockwise:
-                directionSelect(item: menuWheelDirectionCW)
+                rotationSelect(item: menuWheelRotationCW)
             case .anticlockwise:
-                directionSelect(item: menuWheelDirectionCCW)
+                rotationSelect(item: menuWheelRotationCCW)
+        }
+        switch settings.scrollDirection {
+            case .vertical:
+                directionSelect(item: menuScrollDirectionVert)
+            case .horizontal:
+                directionSelect(item: menuScrollDirectionHorz)
         }
         updateRotationClickSetting(newValue: settings.isRotationClickEnabled)
     }
@@ -151,9 +165,16 @@ class AppController: NSObject {
         item.state = .on
         menuDialControlMode.image = item.image
         switch item.identifier {
+            //Scroll
             case menuDialControlModeScroll.identifier:
                 dialControl = DialScrollControl()
                 settings.dialMode = .scrolling
+            //Zoom
+            case menuDialControlModeZoom.identifier:
+                dialControl = DialZoomControl()
+                settings.dialMode = .zoom
+                break;
+            //Volume
             case menuDialControlModeVolume.identifier:
                 dialControl = DialKeysUpDownControl(
                     buttonUpKeyCode: NX_KEYTYPE_SOUND_UP,
@@ -161,6 +182,7 @@ class AppController: NSObject {
                     modifiers: [ .shift, .option ]
                 )
                 settings.dialMode = .volume
+            //Brightness
             case menuDialControlModeBrightness.identifier:
                 dialControl = DialKeysUpDownControl(
                     buttonUpKeyCode: NX_KEYTYPE_BRIGHTNESS_UP,
@@ -169,15 +191,13 @@ class AppController: NSObject {
                     useModifiersWhenExternalDisplayIsMain: true
                 )
                 settings.dialMode = .brightness
+            //Keyboard
             case menuDialControlModeKeyboard.identifier:
                 dialControl = DialKeysUpDownControl(
                     buttonUpKeyCode: NX_KEYTYPE_ILLUMINATION_UP,
                     buttonDownKeyCode: NX_KEYTYPE_ILLUMINATION_DOWN
                 )
                 settings.dialMode = .keyboard
-            case menuDialControlModeZoom.identifier:
-                dialControl = DialZoomControl()
-                settings.dialMode = .zoom
             default:
                 break
         }
@@ -233,23 +253,41 @@ class AppController: NSObject {
     }
 
     @IBAction
-    private func directionSelect(item: NSMenuItem) {
-        menuWheelDirectionCW.state = .off
-        menuWheelDirectionCCW.state = .off
+    private func rotationSelect(item: NSMenuItem) {
+        menuWheelRotationCW.state = .off
+        menuWheelRotationCCW.state = .off
         switch item.identifier {
-            case menuWheelDirectionCW.identifier:
-                menuWheelDirectionCW.state = .on
-                dial?.wheelDirection = .clockwise
-                settings.wheelDirection = .clockwise
-            case menuWheelDirectionCCW.identifier:
-                menuWheelDirectionCCW.state = .on
-                dial?.wheelDirection = .anticlockwise
-                settings.wheelDirection = .anticlockwise
+            case menuWheelRotationCW.identifier:
+                menuWheelRotationCW.state = .on
+                dial?.wheelRotation = .clockwise
+                settings.wheelRotation = .clockwise
+            case menuWheelRotationCCW.identifier:
+                menuWheelRotationCCW.state = .on
+                dial?.wheelRotation = .anticlockwise
+                settings.wheelRotation = .anticlockwise
             default:
                 break
         }
     }
 
+    @IBAction
+    private func directionSelect(item: NSMenuItem) {
+        menuScrollDirectionVert.state = .off
+        menuScrollDirectionHorz.state = .off
+        switch item.identifier {
+            case menuScrollDirectionVert.identifier:
+                menuScrollDirectionVert.state = .on
+                dial?.scrollDirection = .vertical
+                settings.scrollDirection = .vertical
+            case menuScrollDirectionHorz.identifier:
+                menuScrollDirectionHorz.state = .on
+                dial?.scrollDirection = .horizontal
+                settings.scrollDirection = .horizontal
+            default:
+                break
+        }
+    }
+    
     private func updateRotationClickSetting(newValue: Bool) {
         settings.isRotationClickEnabled = newValue
         dial?.isRotationClickEnabled = newValue

@@ -25,6 +25,7 @@
 		C89F315F270126E100A8B365 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C89F315E270126E100A8B365 /* AppKit.framework */; };
 		FA01D9B527A5541700B542F9 /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA01D9B427A5541700B542F9 /* AppController.swift */; };
 		FA8BA9CC29214B4E008383F4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA8BA9CE29214B4E008383F4 /* Localizable.strings */; };
+		FBB9740C2A96DA26008BBFE5 /* KeyCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB9740B2A96DA26008BBFE5 /* KeyCode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,7 +38,7 @@
 		2DBA1824516DE7C2EA24F590 /* HIDReport.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = HIDReport.md; sourceTree = "<group>"; };
 		2DBA1898A55AE4BDB7ED1A4C /* UserSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		2DBA1BDF69863D61FDD7CB3F /* ButtonPressControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonPressControl.swift; sourceTree = "<group>"; };
-		C882FA1626F1430C00595EE1 /* MacDial.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacDial.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C882FA1626F1430C00595EE1 /* MacDial 2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MacDial 2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C882FA1926F1430C00595EE1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C882FA1D26F1430D00595EE1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C882FA2526F1430D00595EE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -50,6 +51,7 @@
 		C89F315E270126E100A8B365 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		FA01D9B427A5541700B542F9 /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
 		FA8BA9CD29214B4E008383F4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FBB9740B2A96DA26008BBFE5 /* KeyCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +82,7 @@
 		C882FA1726F1430C00595EE1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C882FA1626F1430C00595EE1 /* MacDial.app */,
+				C882FA1626F1430C00595EE1 /* MacDial 2.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -133,6 +135,7 @@
 				C89F31582701090400A8B365 /* Dial.swift */,
 				2DBA134CA4B2FEEA02C66B07 /* Device.swift */,
 				2DBA11B74C37AE96041F400D /* DeviceControl.swift */,
+				FBB9740B2A96DA26008BBFE5 /* KeyCode.swift */,
 			);
 			path = Dial;
 			sourceTree = "<group>";
@@ -153,9 +156,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C882FA1526F1430C00595EE1 /* MacDial */ = {
+		C882FA1526F1430C00595EE1 /* MacDial 2 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C882FA2926F1430D00595EE1 /* Build configuration list for PBXNativeTarget "MacDial" */;
+			buildConfigurationList = C882FA2926F1430D00595EE1 /* Build configuration list for PBXNativeTarget "MacDial 2" */;
 			buildPhases = (
 				C882FA1226F1430C00595EE1 /* Sources */,
 				C882FA1326F1430C00595EE1 /* Frameworks */,
@@ -165,9 +168,9 @@
 			);
 			dependencies = (
 			);
-			name = MacDial;
+			name = "MacDial 2";
 			productName = MacDial;
-			productReference = C882FA1626F1430C00595EE1 /* MacDial.app */;
+			productReference = C882FA1626F1430C00595EE1 /* MacDial 2.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -184,7 +187,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C882FA1126F1430C00595EE1 /* Build configuration list for PBXProject "MacDial" */;
+			buildConfigurationList = C882FA1126F1430C00595EE1 /* Build configuration list for PBXProject "MacDial 2" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -199,7 +202,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C882FA1526F1430C00595EE1 /* MacDial */,
+				C882FA1526F1430C00595EE1 /* MacDial 2 */,
 			);
 		};
 /* End PBXProject section */
@@ -228,6 +231,7 @@
 				C89F31592701090400A8B365 /* Dial.swift in Sources */,
 				C89D242B2703CF4500B1A458 /* DialScrollControl.swift in Sources */,
 				2DBA1FB8954597E33AFFEB26 /* Device.swift in Sources */,
+				FBB9740C2A96DA26008BBFE5 /* KeyCode.swift in Sources */,
 				2DBA116C33D51297D5384A52 /* DeviceControl.swift in Sources */,
 				2DBA1B39EA030F1D06E675B7 /* UserSettings.swift in Sources */,
 				2DBA1531BDED42DBEA94036E /* HID.Helpers.swift in Sources */,
@@ -374,24 +378,25 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Resources/MacDial.entitlements;
-				CODE_SIGN_IDENTITY = "-";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 45;
+				CURRENT_PROJECT_VERSION = 46;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Resources/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = MacDial;
+				INFOPLIST_KEY_CFBundleDisplayName = "MacDial 2";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.4.2;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lonelybytes.macdial;
+				MARKETING_VERSION = 1.5.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jeminiriver.macdial2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -405,28 +410,26 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Resources/MacDial.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
-				CODE_SIGN_STYLE = Manual;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 45;
+				CURRENT_PROJECT_VERSION = 46;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 2Y29N9EKUS;
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = 2Y29N9EKUS;
+				DEVELOPMENT_TEAM = 5GN9G3U6HS;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Resources/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = MacDial;
+				INFOPLIST_KEY_CFBundleDisplayName = "MacDial 2";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.4.2;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lonelybytes.macdial;
+				MARKETING_VERSION = 1.5.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jeminiriver.macdial2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "(Developer ID) Mac Dial Status Bar Item";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "(Developer ID) Mac Dial Status Bar Item";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -434,7 +437,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C882FA1126F1430C00595EE1 /* Build configuration list for PBXProject "MacDial" */ = {
+		C882FA1126F1430C00595EE1 /* Build configuration list for PBXProject "MacDial 2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C882FA2726F1430D00595EE1 /* Debug */,
@@ -443,7 +446,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C882FA2926F1430D00595EE1 /* Build configuration list for PBXNativeTarget "MacDial" */ = {
+		C882FA2926F1430D00595EE1 /* Build configuration list for PBXNativeTarget "MacDial 2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C882FA2A26F1430D00595EE1 /* Debug */,

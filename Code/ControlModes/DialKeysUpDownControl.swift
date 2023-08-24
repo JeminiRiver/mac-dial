@@ -48,7 +48,7 @@ class DialKeysUpDownControl: DeviceControl {
     private var lastSentValue: Double = 0
     private var lastRotationDirection: RotationState = .stationary
 
-    func rotationChanged(_ rotation: RotationState) -> Bool {
+    func rotationChanged(_ rotation: RotationState, _ axis: ScrollDirection) -> Bool {
         let step: Double = 1
         let coefficient = 0.2
 
