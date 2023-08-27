@@ -38,11 +38,9 @@ class DialKeysUpDownControl: DeviceControl {
         self.buttonDownKeyCode = buttonDownKeyCode
     }
 
-    func buttonPress() {
-    }
-
-    func buttonRelease() {
-    }
+    func buttonPress() {}
+	func buttonHold() {}
+    func buttonRelease() {}
 
     private var accumulator: Double = 0
     private var lastSentValue: Double = 0

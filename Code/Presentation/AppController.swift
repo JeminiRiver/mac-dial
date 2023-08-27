@@ -15,16 +15,28 @@ import AppKit
 class AppController: NSObject {
     @IBOutlet private var statusMenu: NSMenu!
 
-    @IBOutlet private var menuButtonControlMode: NSMenuItem!
-    @IBOutlet private var menuButtonControlModeLeftClick: NSMenuItem!
-    @IBOutlet private var menuButtonControlModePlayback: NSMenuItem!
-
+    @IBOutlet private var menuShortMode: NSMenuItem!
+    @IBOutlet private var menuShortModeLeft: NSMenuItem!
+	@IBOutlet private var menuShortModeRight: NSMenuItem!
+    @IBOutlet private var menuShortModePlayback: NSMenuItem!
+	@IBOutlet private var menuShortModeLaunchpad: NSMenuItem!
+	
+	@IBOutlet private var menuLongMode: NSMenuItem!
+	@IBOutlet private var menuLongModeLeft: NSMenuItem!
+	@IBOutlet private var menuLongModeRight: NSMenuItem!
+	@IBOutlet private var menuLongModeLaunchpad: NSMenuItem!
+	
     @IBOutlet private var menuDialControlMode: NSMenuItem!
     @IBOutlet private var menuDialControlModeScroll: NSMenuItem!
     @IBOutlet private var menuDialControlModeVolume: NSMenuItem!
     @IBOutlet private var menuDialControlModeBrightness: NSMenuItem!
     @IBOutlet private var menuDialControlModeKeyboard: NSMenuItem!
     @IBOutlet private var menuDialControlModeZoom: NSMenuItem!
+
+	@IBOutlet private var menuPressLength: NSMenuItem!
+	@IBOutlet private var menuPressLengthShort: NSMenuItem!
+	@IBOutlet private var menuPressLengthAvg: NSMenuItem!
+	@IBOutlet private var menuPressLengthLong: NSMenuItem!
 
     @IBOutlet private var menuSensitivity: NSMenuItem!
     @IBOutlet private var menuSensitivityLow: NSMenuItem!
@@ -51,6 +63,7 @@ class AppController: NSObject {
     private var dial: Dial?
     private var dialControl: DeviceControl?
     private var buttonControl: DeviceControl?
+	private var longPressControl: DeviceControl?
 
     override init() {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
@@ -62,9 +75,16 @@ class AppController: NSObject {
     override func awakeFromNib() {
         statusItem.menu = statusMenu
 
-        menuButtonControlMode.title = NSLocalizedString("menu.buttonMode", comment: "")
-        menuButtonControlModeLeftClick.title = NSLocalizedString("menu.buttonMode.leftClick", comment: "")
-        menuButtonControlModePlayback.title = NSLocalizedString("menu.buttonMode.playback", comment: "")
+        menuShortMode.title = NSLocalizedString("menu.shortMode", comment: "")
+        menuShortModeLeft.title = NSLocalizedString("menu.shortMode.leftClick", comment: "")
+		menuShortModeRight.title = NSLocalizedString("menu.shortMode.rightClick", comment: "")
+        menuShortModePlayback.title = NSLocalizedString("menu.shortMode.playback", comment: "")
+		menuShortModeLaunchpad.title = NSLocalizedString("menu.shortMode.launchpad", comment: "")
+
+		menuLongMode.title = NSLocalizedString("menu.longMode", comment: "")
+		menuLongModeLeft.title = NSLocalizedString("menu.longMode.leftClick", comment: "")
+		menuLongModeRight.title = NSLocalizedString("menu.longMode.rightClick", comment: "")
+		menuLongModeLaunchpad.title = NSLocalizedString("menu.longMode.launchpad", comment: "")
 
         menuDialControlMode.title = NSLocalizedString("menu.dialMode", comment: "")
         menuDialControlModeScroll.title = NSLocalizedString("menu.dialMode.scroll", comment: "")
@@ -73,11 +93,11 @@ class AppController: NSObject {
         menuDialControlModeBrightness.title = NSLocalizedString("menu.dialMode.brightness", comment: "")
         menuDialControlModeKeyboard.title = NSLocalizedString("menu.dialMode.keyboard", comment: "")
 
-        // TODO: Does not work for now, so disabling
-        //if let menu = menuDialControlModeZoom.menu, let index = menu.items.firstIndex(of: menuDialControlModeZoom) {
-        //    menu.items.remove(at: index)
-        //}
-
+		menuPressLength.title = NSLocalizedString("menu.pressLength", comment: "")
+		menuPressLengthShort.title = NSLocalizedString("menu.pressLength.short", comment: "")
+		menuPressLengthAvg.title = NSLocalizedString("menu.pressLength.avg", comment: "")
+		menuPressLengthLong.title = NSLocalizedString("menu.pressLength.long", comment: "")
+		
         menuSensitivity.title = NSLocalizedString("menu.rotationSensitivity", comment: "")
         menuSensitivityLow.title = NSLocalizedString("menu.rotationSensitivity.low", comment: "")
         menuSensitivityMedium.title = NSLocalizedString("menu.rotationSensitivity.medium", comment: "")
@@ -94,6 +114,24 @@ class AppController: NSObject {
         menuHaptics.title = NSLocalizedString("menu.rotationFeedback", comment: "")
         menuQuit.title = NSLocalizedString("menu.quit", comment: "")
 
+		switch settings.buttonMode {
+			case .leftClick:
+				buttonModeSelect(item: menuShortModeLeft)
+			case .rightClick:
+				buttonModeSelect(item: menuShortModeRight)
+			case .playback:
+				buttonModeSelect(item: menuShortModePlayback)
+			case .launchpad:
+				buttonModeSelect(item: menuShortModeLaunchpad)
+		}
+		switch settings.longPressMode {
+			case .leftClick:
+				longPressModeSelect(item: menuLongModeLeft)
+			case .rightClick:
+				longPressModeSelect(item: menuLongModeRight)
+			case .launchpad:
+				longPressModeSelect(item: menuLongModeLaunchpad)
+		}
         switch settings.dialMode {
             case .scrolling:
                 dialModeSelect(item: menuDialControlModeScroll)
@@ -106,12 +144,14 @@ class AppController: NSObject {
             case .zoom:
                 dialModeSelect(item: menuDialControlModeZoom)
         }
-        switch settings.buttonMode {
-            case .leftClick:
-                buttonModeSelect(item: menuButtonControlModeLeftClick)
-            case .playback:
-                buttonModeSelect(item: menuButtonControlModePlayback)
-        }
+		switch settings.pressLength {
+			case .short:
+				pressLengthSelect(item: menuPressLengthShort)
+			case .avg:
+				pressLengthSelect(item: menuPressLengthAvg)
+			case .long:
+				pressLengthSelect(item: menuPressLengthLong)
+		}
         switch settings.sensitivity {
             case .low:
                 sensitivitySelect(item: menuSensitivityLow)
@@ -154,6 +194,60 @@ class AppController: NSObject {
         statusItem.button?.imagePosition = .imageLeft
         statusItem.button?.toolTip = from.title
     }
+	
+	@IBAction
+	private func buttonModeSelect(item: NSMenuItem) {
+		menuShortModeLeft.state = .off
+		menuShortModeRight.state = .off
+		menuShortModePlayback.state = .off
+		menuShortModeLaunchpad.state = .off
+		item.state = .on
+		menuShortMode.image = item.image
+		switch item.identifier {
+			case menuShortModeLeft.identifier:
+				buttonControl = ButtonMouseClickControl(pressType: .short, mouseButton: .left)
+				settings.buttonMode = .leftClick
+			case menuShortModeRight.identifier:
+				buttonControl = ButtonMouseClickControl(pressType: .short, mouseButton: .right)
+				settings.buttonMode = .rightClick
+			case menuShortModePlayback.identifier:
+				buttonControl = ButtonPlaybackControl()
+				settings.buttonMode = .playback
+			case menuShortModeLaunchpad.identifier:
+				buttonControl = DialKeyInputControl(pressType: .short, keyCode: .init(160), keyFlags: [])
+				settings.buttonMode = .launchpad
+			default:
+				break
+		}
+		dial?.controls = (dialControl.map { [ $0 ] } ?? []) + (buttonControl.map { [ $0 ] } ?? []) + (longPressControl.map { [ $0 ] } ?? [])
+	}
+
+	@IBAction
+	private func longPressModeSelect(item: NSMenuItem) {
+		menuLongModeLeft.state = .off
+		menuLongModeRight.state = .off
+		menuLongModeLaunchpad.state = .off
+		item.state = .on
+		menuLongMode.image = item.image
+		switch item.identifier {
+			case menuLongModeLeft.identifier:
+				longPressControl = ButtonMouseClickControl(pressType: .long, mouseButton: .left)
+				settings.longPressMode = .leftClick
+			case menuLongModeRight.identifier:
+				longPressControl = ButtonMouseClickControl(pressType: .long, mouseButton: .right)
+				settings.longPressMode = .rightClick
+			case menuLongModeLaunchpad.identifier: //Launchpad
+				longPressControl = DialKeyInputControl(pressType: .long, keyCode: .init(130), keyFlags: [])
+				settings.longPressMode = .launchpad
+			//case menuLongModeLaunchpad.identifier: //Expose/Mission Control
+				//longPressControl = DialKeyInputControl(pressType: .long, keyCode: .init(160), keyFlags: [])
+				//settings.longPressMode = .launchpad
+			default:
+				break
+		}
+		dial?.controls = (dialControl.map { [ $0 ] } ?? []) + (buttonControl.map { [ $0 ] } ?? []) + (longPressControl.map { [ $0 ] } ?? [])
+	}
+	
 
     @IBAction
     private func dialModeSelect(item: NSMenuItem) {
@@ -201,28 +295,32 @@ class AppController: NSObject {
             default:
                 break
         }
-        dial?.controls = (dialControl.map { [ $0 ] } ?? []) + (buttonControl.map { [ $0 ] } ?? [])
+        dial?.controls = (dialControl.map { [ $0 ] } ?? []) + (buttonControl.map { [ $0 ] } ?? []) + (longPressControl.map { [ $0 ] } ?? [])
         updateMenuBarItem(from: item)
     }
 
-    @IBAction
-    private func buttonModeSelect(item: NSMenuItem) {
-        menuButtonControlModeLeftClick.state = .off
-        menuButtonControlModePlayback.state = .off
-        item.state = .on
-        menuButtonControlMode.image = item.image
-        switch item.identifier {
-            case menuButtonControlModeLeftClick.identifier:
-                buttonControl = ButtonPressControl(eventDownType: .leftMouseDown, eventUpType: .leftMouseUp)
-                settings.buttonMode = .leftClick
-            case menuButtonControlModePlayback.identifier:
-                buttonControl = ButtonPlaybackControl()
-                settings.buttonMode = .playback
-            default:
-                break
-        }
-        dial?.controls = (dialControl.map { [ $0 ] } ?? []) + (buttonControl.map { [ $0 ] } ?? [])
-    }
+	@IBAction
+	private func pressLengthSelect(item: NSMenuItem) {
+		menuPressLengthShort.state = .off
+		menuPressLengthAvg.state = .off
+		menuPressLengthLong.state = .off
+		switch item.identifier {
+			case menuPressLengthShort.identifier:
+				menuPressLengthShort.state = .on
+				dial?.pressLength = 0.5
+				settings.pressLength = .short
+			case menuPressLengthAvg.identifier:
+				menuPressLengthAvg.state = .on
+				dial?.pressLength = 1
+				settings.pressLength = .avg
+			case menuPressLengthLong.identifier:
+				menuPressLengthLong.state = .on
+				dial?.pressLength = 1.5
+				settings.pressLength = .long
+			default:
+				break
+		}
+	}
 
     @IBAction
     private func sensitivitySelect(item: NSMenuItem) {
