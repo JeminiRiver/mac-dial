@@ -8,7 +8,7 @@
 "menu.dialMode" = "Dial Mode";
 "menu.dialMode.music" = "Volume";
 "menu.dialMode.scroll" = "Scroll";
-"menu.dialMode.zoom" = "Zoom";
+"menu.dialMode.zoom" = "Zoom"
 "menu.dialMode.brightness" = "Brightness";
 "menu.dialMode.keyboard" = "Keyboard Light";
 

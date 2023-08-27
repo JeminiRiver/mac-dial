@@ -214,7 +214,7 @@
         <image name="icon-brightness-small" width="18" height="18"/>
         <image name="icon-click-small" width="18" height="18"/>
         <image name="icon-keyboard-small" width="18" height="18"/>
-        <image name="icon-playback-small" width="36" height="36"/>
+        <image name="icon-playback-small" width="18" height="18"/>
         <image name="icon-scroll-small" width="18" height="18"/>
         <image name="icon-volume-small" width="18" height="18"/>
         <image name="icon-zoom-small" width="18" height="18"/>
