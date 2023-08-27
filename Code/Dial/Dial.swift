@@ -22,6 +22,11 @@ class Dial {
         set { device.wheelSensitivity = newValue }
     }
 
+	var pressLength: Double {
+		get { device.pressLength }
+		set { device.pressLength = newValue }
+	}
+
     var wheelRotation: WheelRotation {
         get { device.wheelRotation }
         set { device.wheelRotation = newValue }
@@ -36,7 +41,7 @@ class Dial {
         get { device.isRotationClickEnabled }
         set { device.isRotationClickEnabled = newValue }
     }
-
+	
     private var device: DialDevice!
 
     init(
@@ -57,16 +62,26 @@ class Dial {
 
     private var lastButtonState: ButtonState = .released
 
-    private func processButton(state: ButtonState) {
-        let lastButtonState = lastButtonState
-        self.lastButtonState = state
-
-        switch (lastButtonState, state) {
-            case (.released, .pressed): controls.forEach { $0.buttonPress() }
-            case (.pressed, .released): controls.forEach { $0.buttonRelease() }
-            default: break
-        }
-    }
+	private func processButton(state: ButtonState, longPress: Bool) {
+		let previousButtonState = self.lastButtonState
+		self.lastButtonState = state
+		
+		switch (previousButtonState, state) {
+			case (.released, .pressed):
+				controls.forEach {
+					$0.buttonPress()
+				}
+			case (.pressed, .released):
+				controls.forEach {
+					if(longPress) {
+						$0.buttonHold()
+					} else {
+						$0.buttonRelease()
+					}
+				}
+			default: break
+		}
+	}
 
     private func processRotation(state: RotationState) -> Bool {
         var result = false

@@ -37,20 +37,57 @@
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <menu id="G3k-FC-fVx">
                     <items>
-                        <menuItem title="Button Mode" id="Bi4-hl-Bnf">
+                        <menuItem title="Short Button Press" id="zSl-ck-vVw">
                             <modifierMask key="keyEquivalentModifierMask"/>
-                            <menu key="submenu" title="Button Mode" id="RM7-l6-XsX">
+                            <menu key="submenu" title="Short Button Press" id="83k-H6-wJa">
                                 <items>
-                                    <menuItem title="Playback Control" image="icon-playback-small" identifier="button.mode.playback" id="I2U-aD-qMg">
+                                    <menuItem title="Left Mouse" state="on" image="icon-click-small" identifier="button.short.leftclick" id="FcX-dq-jOK">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
-                                            <action selector="buttonModeSelectWithItem:" target="gIN-nu-Pip" id="zHS-Iv-v6H"/>
+                                            <action selector="buttonModeSelectWithItem:" target="gIN-nu-Pip" id="HEX-cA-3HJ"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem title="Left Button Click" state="on" image="icon-click-small" identifier="button.mode.leftclick" id="swb-eL-lJi">
+                                    <menuItem title="Right Mouse" image="icon-click-small" identifier="button.short.rightclick" id="r5h-85-OSd">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
-                                            <action selector="buttonModeSelectWithItem:" target="gIN-nu-Pip" id="tZZ-6j-QNt"/>
+                                            <action selector="buttonModeSelectWithItem:" target="gIN-nu-Pip" id="nRN-R0-5II"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Playback Control" image="icon-playback-small" identifier="button.mode.playback" id="oHJ-jp-PGT">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="buttonModeSelectWithItem:" target="gIN-nu-Pip" id="NW7-HK-tDL"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Launchpad" image="NSIconViewTemplate" identifier="button.short.launchpad" id="6on-G3-2eN">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="buttonModeSelectWithItem:" target="gIN-nu-Pip" id="sGe-Qh-9Br"/>
+                                        </connections>
+                                    </menuItem>
+                                </items>
+                            </menu>
+                        </menuItem>
+                        <menuItem title="Long Button Press" id="Bi4-hl-Bnf">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <menu key="submenu" title="Long Button Press" id="RM7-l6-XsX">
+                                <items>
+                                    <menuItem title="Left Mouse" image="icon-click-small" identifier="button.long.leftclick" id="rYx-Td-cfn">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="longPressModeSelectWithItem:" target="gIN-nu-Pip" id="YWV-K6-qMW"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Right Mouse" state="on" image="icon-click-small" identifier="button.long.rightclick" id="swb-eL-lJi">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="longPressModeSelectWithItem:" target="gIN-nu-Pip" id="Vau-xR-dK1"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Launchpad" image="NSIconViewTemplate" identifier="button.long.launchpad" id="I2U-aD-qMg">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="longPressModeSelectWithItem:" target="gIN-nu-Pip" id="q43-CD-V5a"/>
                                         </connections>
                                     </menuItem>
                                 </items>
@@ -60,7 +97,7 @@
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <menu key="submenu" title="Dial Mode" id="MrT-v4-Wf1">
                                 <items>
-                                    <menuItem title="Volume" state="on" image="icon-volume-small" identifier="dial.mode.playback" id="gME-7l-za8">
+                                    <menuItem title="Volume" state="on" image="icon-volume-small" identifier="dial.mode.music" id="gME-7l-za8">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
                                             <action selector="dialModeSelectWithItem:" target="gIN-nu-Pip" id="jgQ-R5-3KR"/>
@@ -94,26 +131,51 @@
                             </menu>
                         </menuItem>
                         <menuItem isSeparatorItem="YES" id="dwB-c8-zpm"/>
-                        <menuItem title="Sensitivity" id="FER-f3-ImN">
+                        <menuItem title="Press Length" id="FER-f3-ImN">
                             <modifierMask key="keyEquivalentModifierMask"/>
-                            <menu key="submenu" title="Sensitivity" id="vxR-co-3d8">
+                            <menu key="submenu" title="Press Length" id="vxR-co-3d8">
                                 <items>
-                                    <menuItem title="Low" state="on" identifier="sensitivity.low" id="bzY-GD-JPg">
+                                    <menuItem title="Short" identifier="sensitivity.low" id="bzY-GD-JPg">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
-                                            <action selector="sensitivitySelectWithItem:" target="gIN-nu-Pip" id="2vg-P7-p7n"/>
+                                            <action selector="pressLengthSelectWithItem:" target="gIN-nu-Pip" id="U9y-sK-bTZ"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem title="Medium" identifier="sensitivity.medium" id="IxT-1H-xW0">
+                                    <menuItem title="Avg" state="on" identifier="sensitivity.medium" id="IxT-1H-xW0">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
-                                            <action selector="sensitivitySelectWithItem:" target="gIN-nu-Pip" id="b0u-D9-dtp"/>
+                                            <action selector="pressLengthSelectWithItem:" target="gIN-nu-Pip" id="Syp-DW-6VE"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem title="High" identifier="sensitivity.high" id="RIY-2g-aZW">
+                                    <menuItem title="Long" identifier="sensitivity.high" id="RIY-2g-aZW">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
-                                            <action selector="sensitivitySelectWithItem:" target="gIN-nu-Pip" id="UFa-WL-dBb"/>
+                                            <action selector="pressLengthSelectWithItem:" target="gIN-nu-Pip" id="SjW-Cw-ENR"/>
+                                        </connections>
+                                    </menuItem>
+                                </items>
+                            </menu>
+                        </menuItem>
+                        <menuItem title="Sensitivity" id="U5X-sV-faf">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <menu key="submenu" title="Sensitivity" id="lcT-kH-av8">
+                                <items>
+                                    <menuItem title="Low" identifier="sensitivity.low" id="1pD-s3-SLf">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="sensitivitySelectWithItem:" target="gIN-nu-Pip" id="5vp-JZ-dX8"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Medium" state="on" identifier="sensitivity.medium" id="pGs-p7-UgX">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="sensitivitySelectWithItem:" target="gIN-nu-Pip" id="c0W-M3-vHI"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="High" identifier="sensitivity.high" id="ye7-7k-kkD">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="sensitivitySelectWithItem:" target="gIN-nu-Pip" id="idj-p7-gFA"/>
                                         </connections>
                                     </menuItem>
                                 </items>
@@ -177,9 +239,6 @@
                 </menu>
                 <customObject id="gIN-nu-Pip" customClass="AppController" customModule="MacDial_2" customModuleProvider="target">
                     <connections>
-                        <outlet property="menuButtonControlMode" destination="Bi4-hl-Bnf" id="Xvg-wh-u3h"/>
-                        <outlet property="menuButtonControlModeLeftClick" destination="swb-eL-lJi" id="BEp-XR-1sK"/>
-                        <outlet property="menuButtonControlModePlayback" destination="I2U-aD-qMg" id="bSw-L0-5rz"/>
                         <outlet property="menuDialControlMode" destination="8LI-uh-zfA" id="Ffe-T2-bRA"/>
                         <outlet property="menuDialControlModeBrightness" destination="IO3-RU-FHq" id="h4S-5Q-QXn"/>
                         <outlet property="menuDialControlModeKeyboard" destination="AOl-K5-pLD" id="hKL-9S-L42"/>
@@ -187,14 +246,27 @@
                         <outlet property="menuDialControlModeVolume" destination="gME-7l-za8" id="LpZ-nM-dTV"/>
                         <outlet property="menuDialControlModeZoom" destination="ElE-Uo-sbd" id="pX0-sp-mlm"/>
                         <outlet property="menuHaptics" destination="g2u-Rf-4tx" id="04T-ka-edn"/>
+                        <outlet property="menuLongMode" destination="Bi4-hl-Bnf" id="2Zh-OJ-82O"/>
+                        <outlet property="menuLongModeLaunchpad" destination="I2U-aD-qMg" id="GbO-WT-nlH"/>
+                        <outlet property="menuLongModeLeft" destination="rYx-Td-cfn" id="B5k-Te-UwC"/>
+                        <outlet property="menuLongModeRight" destination="swb-eL-lJi" id="OZn-1Q-9CV"/>
+                        <outlet property="menuPressLength" destination="FER-f3-ImN" id="JMA-qg-gbs"/>
+                        <outlet property="menuPressLengthAvg" destination="IxT-1H-xW0" id="1Ef-xs-Dgc"/>
+                        <outlet property="menuPressLengthLong" destination="RIY-2g-aZW" id="YS7-m6-k5H"/>
+                        <outlet property="menuPressLengthShort" destination="bzY-GD-JPg" id="bfq-zP-AkK"/>
                         <outlet property="menuQuit" destination="O5Z-zk-v4Z" id="bua-Re-Fya"/>
                         <outlet property="menuScrollDirection" destination="tun-Im-8wb" id="f6P-wC-rfo"/>
                         <outlet property="menuScrollDirectionHorz" destination="asP-ej-d6C" id="QRj-6b-oBd"/>
                         <outlet property="menuScrollDirectionVert" destination="sFc-y8-OQB" id="WHH-LG-I2q"/>
-                        <outlet property="menuSensitivity" destination="FER-f3-ImN" id="Rer-iP-HjA"/>
-                        <outlet property="menuSensitivityHigh" destination="RIY-2g-aZW" id="cR2-bb-siw"/>
-                        <outlet property="menuSensitivityLow" destination="bzY-GD-JPg" id="XBl-Py-uZC"/>
-                        <outlet property="menuSensitivityMedium" destination="IxT-1H-xW0" id="7aX-fW-U0l"/>
+                        <outlet property="menuSensitivity" destination="U5X-sV-faf" id="YXr-Sf-Vta"/>
+                        <outlet property="menuSensitivityHigh" destination="ye7-7k-kkD" id="iSm-V3-Cbg"/>
+                        <outlet property="menuSensitivityLow" destination="1pD-s3-SLf" id="w9E-xu-eDj"/>
+                        <outlet property="menuSensitivityMedium" destination="pGs-p7-UgX" id="Cmz-aW-HZ7"/>
+                        <outlet property="menuShortMode" destination="zSl-ck-vVw" id="tcN-Er-K9t"/>
+                        <outlet property="menuShortModeLaunchpad" destination="6on-G3-2eN" id="fON-4A-dG9"/>
+                        <outlet property="menuShortModeLeft" destination="FcX-dq-jOK" id="JUl-fz-SPb"/>
+                        <outlet property="menuShortModePlayback" destination="oHJ-jp-PGT" id="UUi-tY-M9f"/>
+                        <outlet property="menuShortModeRight" destination="r5h-85-OSd" id="uCm-Au-4bD"/>
                         <outlet property="menuState" destination="yM5-u2-cSx" id="Xlw-Ju-l6O"/>
                         <outlet property="menuWheelRotation" destination="Rcn-BF-7He" id="WBa-KK-eCp"/>
                         <outlet property="menuWheelRotationCCW" destination="lmT-ql-Of7" id="hVp-Nr-Og4"/>
@@ -207,6 +279,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="NSIconViewTemplate" width="19" height="18"/>
         <image name="arrow.clockwise" catalog="system" width="14" height="16"/>
         <image name="arrow.counterclockwise" catalog="system" width="14" height="16"/>
         <image name="arrow.left.and.line.vertical.and.arrow.right" catalog="system" width="23" height="15"/>
