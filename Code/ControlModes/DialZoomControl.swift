@@ -14,11 +14,9 @@ import AppKit
 import Carbon
 
 class DialZoomControl: DeviceControl {
-    func buttonPress() {
-    }
-
-    func buttonRelease() {
-    }
+    func buttonPress() {}
+	func buttonHold() {}
+    func buttonRelease() {}
 
     private var lastRotate: TimeInterval = Date().timeIntervalSince1970
 
@@ -27,21 +25,14 @@ class DialZoomControl: DeviceControl {
 
         guard let plusKeyCode = CGKeyCode(character: "+") else { fatalError() }
         guard let minusKeyCode = CGKeyCode(character: "-") else { fatalError() }
+		
         let key : CGKeyCode = (rotation.amount > 0) ? plusKeyCode : ( (rotation.amount < 0) ? minusKeyCode : 55 )
-        KeyPress(key, true, true)
-        KeyPress(key, false, true)
-        return true;
+
+		KeyPress(key, true, [CGEventFlags.maskCommand])
+        KeyPress(key, false, [CGEventFlags.maskCommand])
+        
+		return true;
     }
     
-    func KeyPress(_ key: CGKeyCode, _ down: Bool, _ command: Bool) {
-        if
-            let source = CGEventSource( stateID: .privateState ),
-            let event = CGEvent( keyboardEventSource: source, virtualKey: key, keyDown: down ) {
-            if(command) {
-                event.flags = CGEventFlags.maskCommand
-            }
-            event.type = down ? .keyDown : .keyUp
-            event.post( tap: .cghidEventTap )
-        }
-    }
+    
 }

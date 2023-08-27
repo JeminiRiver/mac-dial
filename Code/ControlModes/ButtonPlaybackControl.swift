@@ -19,9 +19,9 @@ class ButtonPlaybackControl: DeviceControl {
     private let isDebug: Bool = false
     #endif
 
-    func buttonPress() {
-    }
-
+    func buttonPress() {}
+	func buttonHold() {}
+	
     private var numberOfClicks: Int = 0
     private var accumulator: Double = 0
     private var lastSentValue: Double = 0

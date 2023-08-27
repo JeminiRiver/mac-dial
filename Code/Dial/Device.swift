@@ -22,11 +22,16 @@ private var _setDevicePointerHandler: (IOHIDDevice, String) -> Void = { _, _ in 
 private var _wheelSensitivity: Double = 1.0
 private var _wheelRotation: WheelRotation = .clockwise
 
-private var _buttonHandler: (ButtonState) -> Void = { _ in }
-private var _rotationHandler: (RotationState) -> Bool = { _ in false }
+private var _longPressed: Bool = false
+private var _pressLength: Double = 1.5
+private var _pressTimer: Timer = .init()
+
 private var _connectionHandler: (_ serialNumber: String) -> Void = { _ in }
 private var _disconnectionHandler: () -> Void = {}
+private var _buttonHandler: (ButtonState, Bool) -> Void = { _,_  in }
+private var _rotationHandler: (RotationState) -> Bool = { _ in false }
 private var _sendHapticsTapToDialHandler: () -> Void = {}
+
 
 private var _queue: IOHIDQueue?
 
@@ -37,6 +42,11 @@ class DialDevice {
         get { _wheelSensitivity }
         set { _wheelSensitivity = newValue }
     }
+
+	var pressLength: Double {
+		get { _pressLength }
+		set { _pressLength = newValue }
+	}
 
     var wheelRotation: WheelRotation {
         get { _wheelRotation }
@@ -51,7 +61,7 @@ class DialDevice {
     private var isConnected: Bool { dialDevice != nil }
 
     init(
-        buttonHandler: @escaping (ButtonState) -> Void,
+		buttonHandler: @escaping (ButtonState, Bool) -> Void,
         rotationHandler: @escaping (RotationState) -> Bool,
         connectionHandler: @escaping (_ serialNumber: String) -> Void,
         disconnectionHandler: @escaping () -> Void
@@ -85,7 +95,7 @@ class DialDevice {
         _sendHapticsTapToDialHandler = { [self] in
             sendHapticsTapToDial()
         }
-
+		
         createHidManager()
         setupDeviceMonitoring()
     }
@@ -109,81 +119,106 @@ class DialDevice {
         IOHIDManagerScheduleWithRunLoop(manager, CFRunLoopGetCurrent(), CFRunLoopMode.defaultMode.rawValue);
         log(tag: "Manager", "opened")
 
-        let inputCallback: IOHIDValueCallback = { _, result, _, value in
-            guard _queue != nil else { return }
-
-            let bytes = IOHIDValueGetBytePtr(value)
-            let length = IOHIDValueGetLength(value)
-            var data = Data()
-            for index in 0 ..< length {
-                data.append(bytes[index])
-            }
-
-            let element = IOHIDValueGetElement(value)
-            let usagePage = IOHIDElementGetUsagePage(element)
-            let usageId = IOHIDElementGetUsage(element)
-
-//            let reportId = IOHIDElementGetReportID(element)
-//            log(tag: "Manager", "value \(hex: usagePage)|\(hex: usageId)|\(hex: reportId): \(data.map { "\(hex: $0)" }.joined(separator: ", "))")
-
-            //    Manager monitoring 0x9|0x1|0x1: 0x0
-            //          Buttons. Primary button.
-            //          1/0
-            //    Manager monitoring 0x1|0x37|0x1: 0x0, 0x0
-            //          Dial.
-            //          1/-1/0.
-            //          A rotary control for generating a variable value, normally in the form of a knob spun by the index finger and thumb.
-            //          Report values should increase as controls are spun clockwise.
-            //          This usage does not follow the HID orientation conventions.
-            //
-            //    Not used:
-            //
-            //    Manager monitoring 0xd|0x48|0x1: 0x3a
-            //          Dial. Width
-            //    Manager monitoring 0x1|0x30|0x1: 0xa, 0xb
-            //          Generic. X.
-            //          A linear translation in the X direction.
-            //          Report values should increase as the control’s position is moved from left to right.
-            //    Manager monitoring 0x1|0x31|0x1: 0xc, 0xd
-            //          Generic. Y.
-            //          A linear translation in the Y direction.
-            //          Report values should increase as the control’s position is moved from far to near.
-            //    Manager monitoring 0xd|0x33|0x1: 0x1
-            //          Digitizers. Touch.
-            //          1/0 (?)
-            //          A bit quantity for touch pads analogous to In Range that indicates that a finger is touching the pad.
-            //          A system will typically map a Touch usage to a primary button.
-
-            switch (usagePage, usageId) {
-                case (0x01, 0x37): // Generic page; Dial
-                    let stateValue = IOHIDValueGetIntegerValue(value)
-                    let needHaptics: Bool
-                    switch stateValue {
-                        case 0:
-                            needHaptics = _rotationHandler(.stationary)
-                        case 1:
-                            let direction: RotationState = _wheelRotation == .clockwise
-                                ? .clockwise(_wheelSensitivity)
-                                : .anticlockwise(_wheelSensitivity)
-                            needHaptics = _rotationHandler(direction)
-                        case -1:
-                            let direction: RotationState = _wheelRotation == .clockwise
-                                ? .anticlockwise(_wheelSensitivity)
-                                : .clockwise(_wheelSensitivity)
-                            needHaptics = _rotationHandler(direction)
-                        default:
-                            needHaptics = false
-                    }
-                    if needHaptics {
-                        _sendHapticsTapToDialHandler()
-                    }
-                case (0x09, 0x01): // Generic page; Button
-                    let stateValue = IOHIDValueGetIntegerValue(value)
-                    _buttonHandler(stateValue == 1 ? .pressed : .released)
-                default:
-                    break
-            }
-        }
+		let inputCallback: IOHIDValueCallback = { _, result, _, value in
+			guard _queue != nil else { return }
+			
+			let bytes = IOHIDValueGetBytePtr(value)
+			let length = IOHIDValueGetLength(value)
+			var data = Data()
+			for index in 0 ..< length {
+				data.append(bytes[index])
+			}
+			
+			let element = IOHIDValueGetElement(value)
+			let usagePage = IOHIDElementGetUsagePage(element)
+			let usageId = IOHIDElementGetUsage(element)
+			
+			//            let reportId = IOHIDElementGetReportID(element)
+			//            log(tag: "Manager", "value \(hex: usagePage)|\(hex: usageId)|\(hex: reportId): \(data.map { "\(hex: $0)" }.joined(separator: ", "))")
+			
+			//    Manager monitoring 0x9|0x1|0x1: 0x0
+			//          Buttons. Primary button.
+			//          1/0
+			//    Manager monitoring 0x1|0x37|0x1: 0x0, 0x0
+			//          Dial.
+			//          1/-1/0.
+			//          A rotary control for generating a variable value, normally in the form of a knob spun by the index finger and thumb.
+			//          Report values should increase as controls are spun clockwise.
+			//          This usage does not follow the HID orientation conventions.
+			//
+			//    Not used:
+			//
+			//    Manager monitoring 0xd|0x48|0x1: 0x3a
+			//          Dial. Width
+			//    Manager monitoring 0x1|0x30|0x1: 0xa, 0xb
+			//          Generic. X.
+			//          A linear translation in the X direction.
+			//          Report values should increase as the control’s position is moved from left to right.
+			//    Manager monitoring 0x1|0x31|0x1: 0xc, 0xd
+			//          Generic. Y.
+			//          A linear translation in the Y direction.
+			//          Report values should increase as the control’s position is moved from far to near.
+			//    Manager monitoring 0xd|0x33|0x1: 0x1
+			//          Digitizers. Touch.
+			//          1/0 (?)
+			//          A bit quantity for touch pads analogous to In Range that indicates that a finger is touching the pad.
+			//          A system will typically map a Touch usage to a primary button.
+			
+			switch (usagePage, usageId) {
+				case (0x01, 0x37): // Generic page; Dial
+					let stateValue = IOHIDValueGetIntegerValue(value)
+					let needHaptics: Bool
+					switch stateValue {
+						case 0:
+							_rotationHandler(.stationary)
+							needHaptics = false;
+						case 1:
+							let direction: RotationState = _wheelRotation == .clockwise
+							? .clockwise(_wheelSensitivity)
+							: .anticlockwise(_wheelSensitivity)
+							needHaptics = _rotationHandler(direction)
+						case -1:
+							let direction: RotationState = _wheelRotation == .clockwise
+							? .anticlockwise(_wheelSensitivity)
+							: .clockwise(_wheelSensitivity)
+							needHaptics = _rotationHandler(direction)
+						default:
+							needHaptics = false
+					}
+					if needHaptics {
+						_sendHapticsTapToDialHandler()
+					}
+				case (0x09, 0x01): // Generic page; Button
+					let stateValue = IOHIDValueGetIntegerValue(value)
+					if( stateValue == 1 ) {
+						//Always processess pressed handlers
+						_buttonHandler(.pressed, false)
+						
+						//Start Timer For Long Pressed
+						_longPressed = false
+						_pressTimer.invalidate()
+						log(tag: "Timer", "Starting Time for \(_pressLength)")
+						_pressTimer = Timer.scheduledTimer(withTimeInterval: _pressLength, repeats: false) { timer in
+							log(tag: "Timer", "Finished Time for \(_pressLength)")
+							//Vibrate for Long Hold
+							_sendHapticsTapToDialHandler()
+							//Process so it fires first then reset the rest
+							_buttonHandler(.released, true)
+							timer.invalidate()
+							_longPressed = true
+						}
+					} else {
+						//Kill long hold timer if its still running.
+						_pressTimer.invalidate()
+						_longPressed = false
+						//Even if Long Pressed has already fired .released doing it twice in a row won't do anything
+						//Only the first one gets processed. Until a new pressed is triggered
+						_buttonHandler(.released, false)
+					}
+				default:
+					break
+			}
+		}
         IOHIDManagerRegisterInputValueCallback(manager, inputCallback, nil)
 
         hidManager = manager
@@ -256,10 +291,10 @@ class DialDevice {
                         default: elementType = "unknown"
                     }
 
-                    let reportId = IOHIDElementGetReportID(element)
-                    let reportCount = IOHIDElementGetReportCount(element)
+                    //let reportId = IOHIDElementGetReportID(element)
+                    //let reportCount = IOHIDElementGetReportCount(element)
 
-                    log(tag: "Queue", "got value: \(elementType)|\(hex: usagePage)|\(hex: usageId)|\(hex: elementCookie); report \(hex: reportId)|\(hex: reportCount): \(data.map { "\(hex: $0)" }.joined(separator: ", "))")
+                    //log(tag: "Queue", "got value: \(elementType)|\(hex: usagePage)|\(hex: usageId)|\(hex: elementCookie); report \(hex: reportId)|\(hex: reportCount): \(data.map { "\(hex: $0)" }.joined(separator: ", "))")
                 }
             }
 
@@ -347,7 +382,9 @@ class DialDevice {
     private func sendHapticsTapToDial() {
         guard isRotationClickEnabled, let dialDevice, let _hapticsElementManualTrigger else { return }
 
-//        log(tag: "Device", "haptics tapping...")
+		guard !_pressTimer.isValid else { return }
+		
+        //log(tag: "Device", "haptics tapping...")
 
         let valueManualTrigger = IOHIDValueCreateWithIntegerValue(nil, _hapticsElementManualTrigger, 0, hapticsClick)
 
@@ -359,7 +396,7 @@ class DialDevice {
         if result != kIOReturnSuccess {
             log(tag: "Device", "haptics tap error: \(result)")
         } else {
-//            log(tag: "Device", "haptics tapped")
+            //log(tag: "Device", "haptics tapped")
         }
     }
 }

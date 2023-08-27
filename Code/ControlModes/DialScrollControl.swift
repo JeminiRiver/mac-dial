@@ -22,11 +22,9 @@ class DialScrollControl: DeviceControl {
         self.withControl = withControl
     }
     
-    func buttonPress() {
-    }
-    
-    func buttonRelease() {
-    }
+    func buttonPress() {}
+	func buttonHold() {}
+    func buttonRelease() {}
     
     private var lastRotate: TimeInterval = Date().timeIntervalSince1970
     
@@ -42,10 +40,6 @@ class DialScrollControl: DeviceControl {
         let diff = (Date().timeIntervalSince1970 - lastRotate) * 1000
         let multiplier = Double(1.0 + ((150.0 - min(diff, 150.0)) / 40.0))
         let steps: Int32 = Int32(floor(amount * multiplier))
-        
-        //let diff = (Date().timeIntervalSince1970 - lastRotate) * 1000
-        //let multiplifer = Int(1 + ((150 - min(diff, 150)) / 40))
-        //let steps = Int32(Int(rotation.amount) * multiplifer)
         
         let scrollEvent = CGEvent(
             scrollWheelEvent2Source: nil,
