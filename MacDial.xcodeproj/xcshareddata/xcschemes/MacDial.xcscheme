@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C882FA1526F1430C00595EE1"
-               BuildableName = "MacDial 2.app"
-               BlueprintName = "MacDial 2"
-               ReferencedContainer = "container:MacDial 2.xcodeproj">
+               BuildableName = "MacDial.app"
+               BlueprintName = "MacDial"
+               ReferencedContainer = "container:MacDial.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -44,9 +44,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C882FA1526F1430C00595EE1"
-            BuildableName = "MacDial 2.app"
-            BlueprintName = "MacDial 2"
-            ReferencedContainer = "container:MacDial 2.xcodeproj">
+            BuildableName = "MacDial.app"
+            BlueprintName = "MacDial"
+            ReferencedContainer = "container:MacDial.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -61,9 +61,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C882FA1526F1430C00595EE1"
-            BuildableName = "MacDial 2.app"
-            BlueprintName = "MacDial 2"
-            ReferencedContainer = "container:MacDial 2.xcodeproj">
+            BuildableName = "MacDial.app"
+            BlueprintName = "MacDial"
+            ReferencedContainer = "container:MacDial.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

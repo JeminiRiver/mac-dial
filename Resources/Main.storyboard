@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
     </dependencies>
     <scenes>
@@ -11,11 +10,11 @@
                 <application id="hnw-xV-0zn" sceneMemberID="viewController">
                     <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
                         <items>
-                            <menuItem title="MacDial 2" id="1Xt-HY-uBw">
+                            <menuItem title="MacDial" id="1Xt-HY-uBw">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="MacDial 2" systemMenu="apple" id="uQy-DD-JDr">
+                                <menu key="submenu" title="MacDial" systemMenu="apple" id="uQy-DD-JDr">
                                     <items>
-                                        <menuItem title="Quit MacDial 2" keyEquivalent="q" id="4sb-4s-VLi">
+                                        <menuItem title="Quit MacDial" keyEquivalent="q" id="4sb-4s-VLi">
                                             <connections>
                                                 <action selector="terminate:" target="Ady-hI-5gd" id="Te7-pn-YzF"/>
                                             </connections>
@@ -279,11 +278,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="NSIconViewTemplate" width="19" height="18"/>
-        <image name="arrow.clockwise" catalog="system" width="14" height="16"/>
-        <image name="arrow.counterclockwise" catalog="system" width="14" height="16"/>
-        <image name="arrow.left.and.line.vertical.and.arrow.right" catalog="system" width="23" height="15"/>
-        <image name="arrow.up.and.line.horizontal.and.arrow.down" catalog="system" width="15" height="18"/>
+        <image name="NSIconViewTemplate" width="19" height="17"/>
+        <image name="arrow.clockwise" catalog="system" width="32" height="32"/>
+        <image name="arrow.counterclockwise" catalog="system" width="32" height="32"/>
+        <image name="arrow.left.and.line.vertical.and.arrow.right" catalog="system" width="32" height="32"/>
+        <image name="arrow.up.and.line.horizontal.and.arrow.down" catalog="system" width="32" height="32"/>
         <image name="icon-brightness-small" width="18" height="18"/>
         <image name="icon-click-small" width="18" height="18"/>
         <image name="icon-keyboard-small" width="18" height="18"/>
