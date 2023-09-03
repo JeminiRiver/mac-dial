@@ -11,6 +11,7 @@
 //
 
 import AppKit
+import SwiftUI
 
 class AppController: NSObject {
     @IBOutlet private var statusMenu: NSMenu!
@@ -56,7 +57,7 @@ class AppController: NSObject {
     @IBOutlet private var menuState: NSMenuItem!
     @IBOutlet private var menuQuit: NSMenuItem!
 
-    private let statusItem: NSStatusItem
+    //private var statusItem: NSStatusItem
 
     private let settings: UserSettings = .init()
 
@@ -66,14 +67,14 @@ class AppController: NSObject {
 	private var longPressControl: DeviceControl?
 
     override init() {
-        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        //statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         super.init()
 
         dial = Dial(connectionHandler: connected, disconnectionHandler: disconnected)
     }
 
     override func awakeFromNib() {
-        statusItem.menu = statusMenu
+        //statusItem.menu = statusMenu
 
         menuShortMode.title = NSLocalizedString("menu.shortMode", comment: "")
         menuShortModeLeft.title = NSLocalizedString("menu.shortMode.leftClick", comment: "")
@@ -189,10 +190,10 @@ class AppController: NSObject {
 
     private func updateMenuBarItem(from: NSMenuItem) {
         let selectedImage = from.image ?? NSImage(named: "icon-scroll-small")!
-        statusItem.button?.image = selectedImage
+        /* statusItem.button?.image = selectedImage
         statusItem.button?.image?.size = .init(width: 18, height: 18)
         statusItem.button?.imagePosition = .imageLeft
-        statusItem.button?.toolTip = from.title
+        statusItem.button?.toolTip = from.title */
     }
 	
 	@IBAction
