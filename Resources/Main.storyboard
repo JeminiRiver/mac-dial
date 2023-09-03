@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -37,9 +38,13 @@
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <menu id="G3k-FC-fVx">
                     <items>
-                        <menuItem title="Short Button Press" id="zSl-ck-vVw">
+                        <menuItem title="Short Button Press" image="icon-click-small" enabled="NO" id="nev-dl-heo">
+                            <attributedString key="attributedTitle"/>
                             <modifierMask key="keyEquivalentModifierMask"/>
-                            <menu key="submenu" title="Short Button Press" id="83k-H6-wJa">
+                        </menuItem>
+                        <menuItem title="Short Press" id="zSl-ck-vVw">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <menu key="submenu" title="Short Press" id="83k-H6-wJa">
                                 <items>
                                     <menuItem title="Left Mouse" state="on" image="icon-click-small" identifier="button.short.leftclick" id="FcX-dq-jOK">
                                         <modifierMask key="keyEquivalentModifierMask"/>
@@ -68,9 +73,9 @@
                                 </items>
                             </menu>
                         </menuItem>
-                        <menuItem title="Long Button Press" id="Bi4-hl-Bnf">
+                        <menuItem title="Long Press" id="Bi4-hl-Bnf">
                             <modifierMask key="keyEquivalentModifierMask"/>
-                            <menu key="submenu" title="Long Button Press" id="RM7-l6-XsX">
+                            <menu key="submenu" title="Long Press" id="RM7-l6-XsX">
                                 <items>
                                     <menuItem title="Left Mouse" image="icon-click-small" identifier="button.long.leftclick" id="rYx-Td-cfn">
                                         <modifierMask key="keyEquivalentModifierMask"/>
@@ -126,6 +131,25 @@
                                         <connections>
                                             <action selector="dialModeSelectWithItem:" target="gIN-nu-Pip" id="vSd-Fx-nWd"/>
                                         </connections>
+                                    </menuItem>
+                                </items>
+                            </menu>
+                        </menuItem>
+                        <menuItem title="Press + Dial" id="MVP-3i-PJ7">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <menu key="submenu" title="Press + Dial" id="ccb-vV-ZFA">
+                                <items>
+                                    <menuItem title="Volume" state="on" image="icon-volume-small" identifier="dial.mode.music" id="Cah-oj-wtx">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                    </menuItem>
+                                    <menuItem title="Zoom" image="icon-zoom-small" identifier="dial.mode.zoom" id="nHp-eF-J2e">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                    </menuItem>
+                                    <menuItem title="Brightness" image="icon-brightness-small" identifier="dial.mode.brightness" id="9FL-NA-7Bm">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                    </menuItem>
+                                    <menuItem title="Keyboard" image="icon-keyboard-small" identifier="dial.mode.keyboard" id="jJO-aQ-l8J">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
                                     </menuItem>
                                 </items>
                             </menu>
@@ -237,6 +261,21 @@
                         </menuItem>
                     </items>
                 </menu>
+                <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" id="ps7-5R-1iq">
+                    <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <subviews>
+                        <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" ambiguous="YES" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wFg-ZK-mOu">
+                            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                        </stackView>
+                    </subviews>
+                    <visibilityPriorities>
+                        <integer value="1000"/>
+                    </visibilityPriorities>
+                    <customSpacing>
+                        <real value="3.4028234663852886e+38"/>
+                    </customSpacing>
+                </stackView>
                 <customObject id="gIN-nu-Pip" customClass="AppController" customModule="MacDial_2" customModuleProvider="target">
                     <connections>
                         <outlet property="menuDialControlMode" destination="8LI-uh-zfA" id="Ffe-T2-bRA"/>
