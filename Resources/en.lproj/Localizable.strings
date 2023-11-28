@@ -18,6 +18,7 @@
 "menu.dialMode.zoom" = "Zoom";
 "menu.dialMode.brightness" = "Brightness";
 "menu.dialMode.keyboard" = "Keyboard";
+"menu.dialMode.spaces" = "Spaces";
 
 "menu.pressLength" = "Press Length";
 "menu.pressLength.short" = "Short (0.5s)";

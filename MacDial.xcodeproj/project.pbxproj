@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -27,6 +27,7 @@
 		FA8BA9CC29214B4E008383F4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA8BA9CE29214B4E008383F4 /* Localizable.strings */; };
 		FB291DE82A9B2D5E00682B25 /* KeyPress.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB291DE72A9B2D5E00682B25 /* KeyPress.swift */; };
 		FB291DEA2A9B374B00682B25 /* DialKeyInputControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB291DE92A9B374B00682B25 /* DialKeyInputControl.swift */; };
+		FB47824B2B15AB870073A735 /* DialKeyDualInputControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB47824A2B15AB870073A735 /* DialKeyDualInputControl.swift */; };
 		FBB9740C2A96DA26008BBFE5 /* KeyCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBB9740B2A96DA26008BBFE5 /* KeyCode.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		FA8BA9CD29214B4E008383F4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FB291DE72A9B2D5E00682B25 /* KeyPress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPress.swift; sourceTree = "<group>"; };
 		FB291DE92A9B374B00682B25 /* DialKeyInputControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialKeyInputControl.swift; sourceTree = "<group>"; };
+		FB47824A2B15AB870073A735 /* DialKeyDualInputControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialKeyDualInputControl.swift; sourceTree = "<group>"; };
 		FBB9740B2A96DA26008BBFE5 /* KeyCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyCode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -149,6 +151,7 @@
 			children = (
 				C89D242A2703CF4500B1A458 /* DialScrollControl.swift */,
 				C89D242C2704870C00B1A458 /* DialKeysUpDownControl.swift */,
+				FB47824A2B15AB870073A735 /* DialKeyDualInputControl.swift */,
 				2DBA151FDA5C8860610CD02D /* HID.Helpers.swift */,
 				2DBA1BDF69863D61FDD7CB3F /* ButtonMouseClickControl.swift */,
 				2DBA134817855F7B605FABE8 /* ButtonPlaybackControl.swift */,
@@ -193,8 +196,9 @@
 		C882FA0E26F1430C00595EE1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1410;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					C882FA1526F1430C00595EE1 = {
 						CreatedOnToolsVersion = 12.5.1;
@@ -241,6 +245,7 @@
 			files = (
 				FA01D9B527A5541700B542F9 /* AppController.swift in Sources */,
 				C882FA1A26F1430C00595EE1 /* AppDelegate.swift in Sources */,
+				FB47824B2B15AB870073A735 /* DialKeyDualInputControl.swift in Sources */,
 				C89D242D2704870C00B1A458 /* DialKeysUpDownControl.swift in Sources */,
 				C89F31592701090400A8B365 /* Dial.swift in Sources */,
 				FB291DEA2A9B374B00682B25 /* DialKeyInputControl.swift in Sources */,
@@ -275,6 +280,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -309,6 +315,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -323,7 +330,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -337,6 +344,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -371,6 +379,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -379,7 +388,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -398,7 +407,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 48;
+				CURRENT_PROJECT_VERSION = 54;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -410,8 +419,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.4.3;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.4.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jeminiriver.macdial;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -429,7 +438,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 48;
+				CURRENT_PROJECT_VERSION = 54;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -441,8 +450,8 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.0;
-				MARKETING_VERSION = 1.4.3;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.4.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jeminiriver.macdial;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

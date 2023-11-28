@@ -167,10 +167,10 @@ class DialDevice {
 			switch (usagePage, usageId) {
 				case (0x01, 0x37): // Generic page; Dial
 					let stateValue = IOHIDValueGetIntegerValue(value)
-					let needHaptics: Bool
+					var needHaptics: Bool
 					switch stateValue {
 						case 0:
-							_rotationHandler(.stationary)
+							needHaptics = _rotationHandler(.stationary)
 							needHaptics = false;
 						case 1:
 							let direction: RotationState = _wheelRotation == .clockwise
@@ -265,37 +265,37 @@ class DialDevice {
             _queue = queue
 
             let queueCallback: IOHIDCallback = { _, result, _ in
-                guard let queue = _queue else { return }
+                //guard let queue = _queue else { return }
 
-                while let value = IOHIDQueueCopyNextValue(queue) {
-                    let bytes = IOHIDValueGetBytePtr(value)
-                    let length = IOHIDValueGetLength(value)
-                    let data = Data(bytes: bytes, count: length)
+                //while let value = IOHIDQueueCopyNextValue(queue) {
+                    //let bytes = IOHIDValueGetBytePtr(value)
+                    //let length = IOHIDValueGetLength(value)
+                    //let data = Data(bytes: bytes, count: length)
 
-                    let element = IOHIDValueGetElement(value)
-                    let usagePage = IOHIDElementGetUsagePage(element)
-                    let usageId = IOHIDElementGetUsage(element)
+                    //let element = IOHIDValueGetElement(value)
+                    //let usagePage = IOHIDElementGetUsagePage(element)
+                    //let usageId = IOHIDElementGetUsage(element)
 
-                    let elementCookie = IOHIDElementGetCookie(element)
-                    let elementTypeCode = IOHIDElementGetType(element)
-                    let elementType: String
-                    switch elementTypeCode {
-                        case kIOHIDElementTypeInput_Misc: elementType = "misc"
-                        case kIOHIDElementTypeInput_Button: elementType = "button"
-                        case kIOHIDElementTypeInput_Axis: elementType = "axis"
-                        case kIOHIDElementTypeInput_ScanCodes: elementType = "scanCodes"
-                        case kIOHIDElementTypeInput_NULL: elementType = "null"
-                        case kIOHIDElementTypeOutput: elementType = "output"
-                        case kIOHIDElementTypeFeature: elementType = "feature"
-                        case kIOHIDElementTypeCollection: elementType = "collection"
-                        default: elementType = "unknown"
-                    }
+                    //let elementCookie = IOHIDElementGetCookie(element)
+                    //let elementTypeCode = IOHIDElementGetType(element)
+//                    let elementType: String
+//                    switch elementTypeCode {
+//                        case kIOHIDElementTypeInput_Misc: elementType = "misc"
+//                        case kIOHIDElementTypeInput_Button: elementType = "button"
+//                        case kIOHIDElementTypeInput_Axis: elementType = "axis"
+//                        case kIOHIDElementTypeInput_ScanCodes: elementType = "scanCodes"
+//                        case kIOHIDElementTypeInput_NULL: elementType = "null"
+//                        case kIOHIDElementTypeOutput: elementType = "output"
+//                        case kIOHIDElementTypeFeature: elementType = "feature"
+//                        case kIOHIDElementTypeCollection: elementType = "collection"
+//                        default: elementType = "unknown"
+//                    }
 
                     //let reportId = IOHIDElementGetReportID(element)
                     //let reportCount = IOHIDElementGetReportCount(element)
 
                     //log(tag: "Queue", "got value: \(elementType)|\(hex: usagePage)|\(hex: usageId)|\(hex: elementCookie); report \(hex: reportId)|\(hex: reportCount): \(data.map { "\(hex: $0)" }.joined(separator: ", "))")
-                }
+                //}
             }
 
             let cfElements = IOHIDDeviceCopyMatchingElements(dialDevice, nil, 0)

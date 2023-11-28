@@ -32,6 +32,7 @@ class AppController: NSObject {
     @IBOutlet private var menuDialControlModeBrightness: NSMenuItem!
     @IBOutlet private var menuDialControlModeKeyboard: NSMenuItem!
     @IBOutlet private var menuDialControlModeZoom: NSMenuItem!
+	@IBOutlet private var menuDialControlModeSpaces: NSMenuItem!
 
 	@IBOutlet private var menuPressLength: NSMenuItem!
 	@IBOutlet private var menuPressLengthShort: NSMenuItem!
@@ -92,6 +93,7 @@ class AppController: NSObject {
         menuDialControlModeVolume.title = NSLocalizedString("menu.dialMode.music", comment: "")
         menuDialControlModeBrightness.title = NSLocalizedString("menu.dialMode.brightness", comment: "")
         menuDialControlModeKeyboard.title = NSLocalizedString("menu.dialMode.keyboard", comment: "")
+		menuDialControlModeSpaces.title = NSLocalizedString("menu.dialMode.spaces", comment: "")
 
 		menuPressLength.title = NSLocalizedString("menu.pressLength", comment: "")
 		menuPressLengthShort.title = NSLocalizedString("menu.pressLength.short", comment: "")
@@ -143,6 +145,8 @@ class AppController: NSObject {
                 dialModeSelect(item: menuDialControlModeKeyboard)
             case .zoom:
                 dialModeSelect(item: menuDialControlModeZoom)
+			case .spaces:
+				dialModeSelect(item: menuDialControlModeSpaces)
         }
 		switch settings.pressLength {
 			case .short:
@@ -256,6 +260,7 @@ class AppController: NSObject {
         menuDialControlModeBrightness.state = .off
         menuDialControlModeKeyboard.state = .off
         menuDialControlModeZoom.state = .off
+		menuDialControlModeSpaces.state = .off
         item.state = .on
         menuDialControlMode.image = item.image
         switch item.identifier {
@@ -263,6 +268,7 @@ class AppController: NSObject {
             case menuDialControlModeScroll.identifier:
                 dialControl = DialScrollControl()
                 settings.dialMode = .scrolling
+				break;
             //Zoom
             case menuDialControlModeZoom.identifier:
                 dialControl = DialZoomControl()
@@ -276,6 +282,7 @@ class AppController: NSObject {
                     modifiers: [ .shift, .option ]
                 )
                 settings.dialMode = .volume
+				break;
             //Brightness
             case menuDialControlModeBrightness.identifier:
                 dialControl = DialKeysUpDownControl(
@@ -285,6 +292,7 @@ class AppController: NSObject {
                     useModifiersWhenExternalDisplayIsMain: true
                 )
                 settings.dialMode = .brightness
+				break;
             //Keyboard
             case menuDialControlModeKeyboard.identifier:
                 dialControl = DialKeysUpDownControl(
@@ -292,6 +300,16 @@ class AppController: NSObject {
                     buttonDownKeyCode: NX_KEYTYPE_ILLUMINATION_DOWN
                 )
                 settings.dialMode = .keyboard
+				break;
+			//Spaces
+			case menuDialControlModeSpaces.identifier:
+				dialControl = DialKeysDualInputControl(
+					buttonClockwiseKeyCode: CGKeyCode(specialKey: .leftArrow),
+					buttonCounterKeyCode: CGKeyCode(specialKey: .rightArrow),
+					modifiers: [ .maskControl ]
+				)
+				settings.dialMode = .spaces
+				break;
             default:
                 break
         }

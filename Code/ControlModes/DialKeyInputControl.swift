@@ -36,7 +36,7 @@ class DialKeyInputControl: DeviceControl {
 	}
 
 	func rotationChanged(_ rotation: RotationState, _ axis: ScrollDirection) -> Bool {
-		return true;
+		return false;
 	}
 	
 	

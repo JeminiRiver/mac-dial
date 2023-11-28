@@ -51,18 +51,18 @@ class ButtonMouseClickControl: DeviceControl {
     }
 
 	private func sendMouseClick(_ eventType: CGEventType) {
-        let mouseOriginal = NSEvent.mouseLocation
+        //let mouseOriginal = NSEvent.mouseLocation
         var mouseLocation = NSEvent.mouseLocation
         
-        let screens = NSScreen.screens;
+        //let screens = NSScreen.screens;
         
         //Multi monitor setups
 		//NSScreen.main is the focused display NOT the Menu Bar display
         //If what you want is the primary display, the one at (0, 0), just use NSScreen.screens[0].
         let screenMain = NSScreen.screens[0];
-        let screenWithMouse = (screens.first { NSMouseInRect(mouseLocation, $0.frame, false) })
+        //let screenWithMouse = (screens.first { NSMouseInRect(mouseLocation, $0.frame, false) })
         let frameFromMain = screenMain.frame
-        let frameFromScreen = screenWithMouse!.frame
+        //let frameFromScreen = screenWithMouse!.frame
         
         //X is a straight translation from the farthest left screen starting at 0
         //mouseLocation.x -= frameFromScreen.origin.x;

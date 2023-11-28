@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22155"/>
     </dependencies>
     <scenes>
         <!--Application-->
@@ -28,7 +29,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="MacDial_2" customModuleProvider="target">
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="MacDial" customModuleProvider="target">
                     <connections>
                         <outlet property="controller" destination="gIN-nu-Pip" id="a7Z-td-ets"/>
                     </connections>
@@ -126,6 +127,12 @@
                                             <action selector="dialModeSelectWithItem:" target="gIN-nu-Pip" id="vSd-Fx-nWd"/>
                                         </connections>
                                     </menuItem>
+                                    <menuItem title="Spaces" image="icon-desktop-small" identifier="dial.mode.spaces" id="dgs-e3-Qem">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="dialModeSelectWithItem:" target="gIN-nu-Pip" id="bk1-7W-NXw"/>
+                                        </connections>
+                                    </menuItem>
                                 </items>
                             </menu>
                         </menuItem>
@@ -134,19 +141,19 @@
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <menu key="submenu" title="Press Length" id="vxR-co-3d8">
                                 <items>
-                                    <menuItem title="Short" identifier="sensitivity.low" id="bzY-GD-JPg">
+                                    <menuItem title="Short" identifier="presslength.low" id="bzY-GD-JPg">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
                                             <action selector="pressLengthSelectWithItem:" target="gIN-nu-Pip" id="U9y-sK-bTZ"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem title="Avg" state="on" identifier="sensitivity.medium" id="IxT-1H-xW0">
+                                    <menuItem title="Avg" state="on" identifier="presslength.medium" id="IxT-1H-xW0">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
                                             <action selector="pressLengthSelectWithItem:" target="gIN-nu-Pip" id="Syp-DW-6VE"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem title="Long" identifier="sensitivity.high" id="RIY-2g-aZW">
+                                    <menuItem title="Long" identifier="presslength.high" id="RIY-2g-aZW">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
                                             <action selector="pressLengthSelectWithItem:" target="gIN-nu-Pip" id="SjW-Cw-ENR"/>
@@ -236,12 +243,13 @@
                         </menuItem>
                     </items>
                 </menu>
-                <customObject id="gIN-nu-Pip" customClass="AppController" customModule="MacDial_2" customModuleProvider="target">
+                <customObject id="gIN-nu-Pip" customClass="AppController" customModule="MacDial" customModuleProvider="target">
                     <connections>
                         <outlet property="menuDialControlMode" destination="8LI-uh-zfA" id="Ffe-T2-bRA"/>
                         <outlet property="menuDialControlModeBrightness" destination="IO3-RU-FHq" id="h4S-5Q-QXn"/>
                         <outlet property="menuDialControlModeKeyboard" destination="AOl-K5-pLD" id="hKL-9S-L42"/>
                         <outlet property="menuDialControlModeScroll" destination="v7h-h5-CmP" id="uVG-cd-CG4"/>
+                        <outlet property="menuDialControlModeSpaces" destination="dgs-e3-Qem" id="ZOg-HY-oat"/>
                         <outlet property="menuDialControlModeVolume" destination="gME-7l-za8" id="LpZ-nM-dTV"/>
                         <outlet property="menuDialControlModeZoom" destination="ElE-Uo-sbd" id="pX0-sp-mlm"/>
                         <outlet property="menuHaptics" destination="g2u-Rf-4tx" id="04T-ka-edn"/>
@@ -278,13 +286,14 @@
         </scene>
     </scenes>
     <resources>
-        <image name="NSIconViewTemplate" width="19" height="17"/>
-        <image name="arrow.clockwise" catalog="system" width="32" height="32"/>
-        <image name="arrow.counterclockwise" catalog="system" width="32" height="32"/>
-        <image name="arrow.left.and.line.vertical.and.arrow.right" catalog="system" width="32" height="32"/>
-        <image name="arrow.up.and.line.horizontal.and.arrow.down" catalog="system" width="32" height="32"/>
+        <image name="NSIconViewTemplate" width="19" height="18"/>
+        <image name="arrow.clockwise" catalog="system" width="14" height="16"/>
+        <image name="arrow.counterclockwise" catalog="system" width="14" height="16"/>
+        <image name="arrow.left.and.line.vertical.and.arrow.right" catalog="system" width="23" height="15"/>
+        <image name="arrow.up.and.line.horizontal.and.arrow.down" catalog="system" width="15" height="18"/>
         <image name="icon-brightness-small" width="18" height="18"/>
         <image name="icon-click-small" width="18" height="18"/>
+        <image name="icon-desktop-small" width="18" height="18"/>
         <image name="icon-keyboard-small" width="18" height="18"/>
         <image name="icon-playback-small" width="18" height="18"/>
         <image name="icon-scroll-small" width="18" height="18"/>

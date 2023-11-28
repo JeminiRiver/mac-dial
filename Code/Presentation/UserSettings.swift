@@ -45,6 +45,7 @@ class UserSettings {
 		case brightness
 		case keyboard
 		case zoom
+		case spaces
 	}
 
 	enum PressLength {
@@ -130,6 +131,7 @@ class UserSettings {
 				case 5: return .zoom
                 case 3: return .brightness
                 case 4: return .keyboard
+				case 6: return .spaces
                 default: return .scrolling
             }
         }
@@ -140,6 +142,7 @@ class UserSettings {
 				case .zoom: dialModeSetting = 5
                 case .brightness: dialModeSetting = 3
                 case .keyboard: dialModeSetting = 4
+				case .spaces: dialModeSetting = 6
             }
         }
     }

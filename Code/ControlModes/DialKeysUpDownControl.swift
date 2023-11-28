@@ -82,10 +82,11 @@ class DialKeysUpDownControl: DeviceControl {
                 HIDPostAuxKey(key: key, modifiers: modifiers, repeatCount: Int(clicks))
             }
             log(tag: "Media", "sent \(isUp(key) ? "↑" : "↓")")
+			return true
         } else {
 //            log(tag: "Media", "not sent \(key == buttonUpKeyCode ? "↑" : "↓") -> \(volumeAccumulator.formatted(.number.precision(.fractionLength(2)))) / \(volumeLastSentValue.formatted(.number.precision(.fractionLength(2))))")
         }
-        return true
+        return false
     }
 
     private var detectedModifiers: NSEvent.ModifierFlags {
