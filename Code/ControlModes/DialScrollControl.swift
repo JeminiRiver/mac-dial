@@ -17,9 +17,14 @@ import CoreGraphics
 
 class DialScrollControl: DeviceControl {
     private let withControl: Bool
+	private let forPressed: Bool
     
-    init(withControl: Bool = false) {
+	init(
+		forPressed: Bool,
+		withControl: Bool = false
+	) {
         self.withControl = withControl
+		self.forPressed = forPressed
     }
     
     func buttonPress() {}
@@ -28,8 +33,10 @@ class DialScrollControl: DeviceControl {
     
     private var lastRotate: TimeInterval = Date().timeIntervalSince1970
     
-    func rotationChanged(_ rotation: RotationState, _ axis: ScrollDirection) -> Bool {
+	func rotationChanged(_ rotation: RotationState, _ axis: ScrollDirection, _ isPressed: Bool) -> Bool {
+		guard self.forPressed == isPressed else { return false }
         guard rotation != .stationary else { return false }
+		
         var amount = rotation.amount
         
         //MacOS Inverts vertical & horizontal scrolling by default

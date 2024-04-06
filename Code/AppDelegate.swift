@@ -39,7 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         log(tag: "Accessibility", "Accessibility access [\(isAppTrusted)]");
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            _ = DialZoomControl().rotationChanged(.clockwise(5), .vertical)
+			_ = DialZoomControl(forPressed: false).rotationChanged(.clockwise(5), .vertical, false)
         }
     }
     

@@ -35,7 +35,7 @@ class DialKeyInputControl: DeviceControl {
 		KeyPress(self.keyCode, false, self.keyFlags)
 	}
 
-	func rotationChanged(_ rotation: RotationState, _ axis: ScrollDirection) -> Bool {
+	func rotationChanged(_ rotation: RotationState, _ axis: ScrollDirection, _ isPressed: Bool) -> Bool {
 		return false;
 	}
 	

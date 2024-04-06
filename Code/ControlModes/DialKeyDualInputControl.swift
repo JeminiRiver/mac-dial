@@ -15,11 +15,13 @@ import Carbon
 
 class DialKeysDualInputControl: DeviceControl {
 	private let modifiers: [CGEventFlags]
+	private let forPressed: Bool
 
     private let buttonClockwiseKeyCode: CGKeyCode!
     private let buttonCounterKeyCode: CGKeyCode!
 
     init(
+		forPressed: Bool,
 		buttonClockwiseKeyCode: CGKeyCode!,
 		buttonCounterKeyCode: CGKeyCode!,
         modifiers: [CGEventFlags]
@@ -27,6 +29,7 @@ class DialKeysDualInputControl: DeviceControl {
         self.buttonClockwiseKeyCode = buttonClockwiseKeyCode
         self.buttonCounterKeyCode = buttonCounterKeyCode
 		self.modifiers = modifiers
+		self.forPressed = forPressed
     }
 
     func buttonPress() {}
@@ -38,7 +41,11 @@ class DialKeysDualInputControl: DeviceControl {
     private var lastSentValue: Double = 0
     private var lastRotationDirection: RotationState = .stationary
 
-    func rotationChanged(_ rotation: RotationState, _ axis: ScrollDirection) -> Bool {
+    func rotationChanged(_ rotation: RotationState, _ axis: ScrollDirection, _ isPressed: Bool) -> Bool {
+		guard self.forPressed == isPressed else { return false }
+
+		log(tag: "DualInputControl", "Processing Rotation.")
+
 		let degrees: Double = 4
         let step: Double = 1
 		let coefficient = 0.2

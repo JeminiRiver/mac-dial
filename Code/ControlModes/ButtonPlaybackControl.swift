@@ -61,7 +61,7 @@ class ButtonPlaybackControl: DeviceControl {
         HIDPostAuxKey(key: key, modifiers: [], repeatCount: repeatCount)
     }
 
-    func rotationChanged(_ rotation: RotationState, _ axis: ScrollDirection) -> Bool {
+    func rotationChanged(_ rotation: RotationState, _ axis: ScrollDirection, _ isPressed: Bool) -> Bool {
         false
     }
 }

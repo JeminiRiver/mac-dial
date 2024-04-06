@@ -26,7 +26,10 @@ class DialKeysUpDownControl: DeviceControl {
     private let buttonUpKeyCode: Int32
     private let buttonDownKeyCode: Int32
 
+	private let forPressed: Bool
+
     init(
+		forPressed: Bool,
         buttonUpKeyCode: Int32,
         buttonDownKeyCode: Int32,
         modifiers: NSEvent.ModifierFlags = [],
@@ -36,6 +39,7 @@ class DialKeysUpDownControl: DeviceControl {
         self.useModifiersWhenExternalDisplayIsMain = useModifiersWhenExternalDisplayIsMain
         self.buttonUpKeyCode = buttonUpKeyCode
         self.buttonDownKeyCode = buttonDownKeyCode
+		self.forPressed = forPressed
     }
 
     func buttonPress() {}
@@ -46,7 +50,8 @@ class DialKeysUpDownControl: DeviceControl {
     private var lastSentValue: Double = 0
     private var lastRotationDirection: RotationState = .stationary
 
-    func rotationChanged(_ rotation: RotationState, _ axis: ScrollDirection) -> Bool {
+    func rotationChanged(_ rotation: RotationState, _ axis: ScrollDirection, _ isPressed: Bool) -> Bool {
+		guard self.forPressed == isPressed else { return false }
         let step: Double = 1
         let coefficient = 0.2
 

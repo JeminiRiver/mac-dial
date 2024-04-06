@@ -11,6 +11,7 @@
 "menu.longMode.leftClick" = "Left Mouse";
 "menu.longMode.rightClick" = "Right Mouse";
 "menu.longMode.launchpad" = "Launchpad";
+"menu.longMode.holdAndDial" = "Hold & Dial";
 
 "menu.dialMode" = "Dial Mode";
 "menu.dialMode.music" = "Volume";
@@ -19,6 +20,8 @@
 "menu.dialMode.brightness" = "Brightness";
 "menu.dialMode.keyboard" = "Keyboard";
 "menu.dialMode.spaces" = "Spaces";
+
+"menu.holdAndDialMode" = "Hold & Dial Mode";
 
 "menu.pressLength" = "Press Length";
 "menu.pressLength.short" = "Short (0.5s)";
@@ -30,11 +33,11 @@
 "menu.rotationSensitivity.medium" = "Medium";
 "menu.rotationSensitivity.high" = "High";
 
-"menu.rotation" = "Rotation";
+"menu.rotation" = "Wheel Rotation";
 "menu.rotation.cw" = "Clockwise";
 "menu.rotation.ccw" = "Counter";
 
-"menu.direction" = "Direction";
+"menu.direction" = "Scroll Direction";
 "menu.direction.vert" = "Vertical";
 "menu.direction.horz" = "Horizontal";
 

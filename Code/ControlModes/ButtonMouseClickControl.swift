@@ -18,10 +18,13 @@ class ButtonMouseClickControl: DeviceControl {
 	private var eventDownType: CGEventType = .leftMouseDown
 	private var eventUpType: CGEventType = .leftMouseUp
 
-	init(pressType: PressType, mouseButton: CGMouseButton) {
+	init(
+		pressType: PressType,
+		mouseButton: CGMouseButton
+	) {
 		self.pressType = pressType
 		self.mouseButton = mouseButton
-		
+
 		switch( self.mouseButton) {
 			case .right:
 				eventDownType = .rightMouseDown
@@ -80,7 +83,7 @@ class ButtonMouseClickControl: DeviceControl {
         event?.post(tap: .cghidEventTap)
     }
 
-    func rotationChanged(_ rotation: RotationState, _ axis: ScrollDirection) -> Bool {
+    func rotationChanged(_ rotation: RotationState, _ axis: ScrollDirection, _ isPressed: Bool) -> Bool {
         return false
     }
 }

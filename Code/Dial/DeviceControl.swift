@@ -50,6 +50,6 @@ protocol DeviceControl: AnyObject {
 	func buttonPress()
 	func buttonHold()
 	func buttonRelease()
-    func rotationChanged(_ rotation: RotationState, _ scroll: ScrollDirection) -> Bool
+	func rotationChanged(_ rotation: RotationState, _ scroll: ScrollDirection, _ whilePressed: Bool) -> Bool
 }
 

@@ -83,9 +83,9 @@ class Dial {
 		}
 	}
 
-    private func processRotation(state: RotationState) -> Bool {
+	private func processRotation(state: RotationState, isPressed: Bool) -> Bool {
         var result = false
-        controls.forEach { result = $0.rotationChanged(state, scrollDirection) || result }
+        controls.forEach { result = $0.rotationChanged(state, scrollDirection, isPressed) || result }
         return result
     }
 }
